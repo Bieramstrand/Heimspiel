@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Heimspiel</title>
+<meta name="theme-color" content="#2b3f8f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Heimspiel">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+PHJlY3Qgd2lkdGg9IjEyMCIgaGVpZ2h0PSIxMjAiIGZpbGw9IiMxMTExMTEiLz48cmVjdCB4PSIyOCIgeT0iMzQiIHdpZHRoPSI2NCIgaGVpZ2h0PSI1OCIgcng9IjEwIiBmaWxsPSIjZmZmZmZmIi8+PHBhdGggZD0iTTI4IDUyVjQ0YTEwIDEwIDAgMCAxIDEwLTEwSDgyYTEwIDEwIDAgMCAxIDEwIDEwVjUyWiIgZmlsbD0iI2U4NzMxYSIvPjxyZWN0IHg9IjQyIiB5PSIyNCIgd2lkdGg9IjgiIGhlaWdodD0iMTgiIHJ4PSI0IiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiMxMTExMTEiIHN0cm9rZS13aWR0aD0iMyIvPjxyZWN0IHg9IjcwIiB5PSIyNCIgd2lkdGg9IjgiIGhlaWdodD0iMTgiIHJ4PSI0IiBmaWxsPSIjZmZmZmZmIiBzdHJva2U9IiMxMTExMTEiIHN0cm9rZS13aWR0aD0iMyIvPjxwb2x5Z29uIHBvaW50cz0iNjAsNTggNjQsNjggNzUsNjggNjYsNzUgNjksODYgNjAsNzkgNTEsODYgNTQsNzUgNDUsNjggNTYsNjgiIGZpbGw9IiNlODczMWEiIHN0cm9rZT0iIzExMTExMSIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PC9zdmc+">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAEEklEQVR4nO3dQVbbMBRAUdHTCcNkF2yLhbEtduEp0w5E1TTkBRJb1o/+u7PS05jIL5Kw0/B0OByKdMmv0d+A4jIOIeMQMg4h4xAyDiHjEDIOIeMQMg4h4xAyDiHjEDIOIeMQMg4h4xAyDiHjEDIOIeMQMg4h4xAyDiHjEDIOIeMQMg4h4xAyDiHjEDIOIeMQMg4h4xAyDiHjEPo9+hvYzLIsp388Ho95jt7JJDPH2bm5+JVZj97PDHHQmdjnDI09elczxKFOjEPIOISMQ8g4hIxDyDiEjEPIOISMQ+gBbry9vz7TX728fax8hDXWH/2HjzBK3Dg6ndFQ2nOMWUnEODJkcaY+5WiJhNtzJCyjifbcY8URbXT2F2oEAsURalwGijMOUeKIMyIRBBmNEHEEGYtQIoxJiDgU0/g41rxE6r+lt3rXr/d7CfY++vDJY3wcK9EZ6l1GhKP39nQ4HMZ+B5uM4MXLR7udm35HH3tZbPDMsdX5+/o4e75q+x197NwT8fL5fcaO46OvIBc9/J5D/RiHkHEIGYeQcQgZh5BxCBmHkHEIGYeQcQgZh5BxCBmHkHEIGYeQcQgNfg/pBB/z29vAj1F35hAyDiHjEDIOIeP4zxy/RGcrxiFkHP8cj8f312cnj8Y4hIzjU502SilOHo1xCBmHkHGUcrKmVK4slXEIGcf5tFE5eRTj0BXGIZQ9jotrSuXKkj0OXZE6jivTRpV88pjn0wT7ncVbH3maN8ZO9Qbj4Z8b/PL2sXkZA6eueWaO8je1bxeLHupHDU8zZ1QT7jmWZdn5U6HrhDFZGWWymaNZlmW3JabHUhLEnHGUXZaYKZeSU9PGUfWbQiaeMJoJ9xxn6m5g211IhjLK9DNHU6eQ9fPH9EvJqSxxlC2WmCQTRjP/snJqzRKTrYySLQ7dJF0cQ66fPqh0cdwt4R1a4xAyDqFccXy74Rj7e1yjyRXHdfWH1St9ZNt2JLoIdsXpdc+trqVOIFEcdMq/Xt3a845/ZNmXFbru2eN23cNJHce3V8S/9pFq25FlWTlbU35+czXzFiTjzHHrWz7Tri9ZZo7mvpurObeog//fStnrjTNto7DycHWJ2e32/dj9TYqZow7xJqezTSEZZNlzbPhCz/OWn/HLSsk03DcZPkVlmTl0hxBxDH+JBBRhTELEUWKMRRxBRiNKHCXMiAwXZxwCxVEijcsooUYgVhwl2OjsLNpzD/Gj7EWpfr6NlkUVN45m4kpiNtE8QBwaJdyeQ3EYh5BxCBmHkHEIGYeQcQgZh5BxCBmHkHEIGYeQcQgZh5BxCBmHkHEIGYeQcQgZh5BxCBmHkHEIGYeQcQgZh5BxCBmHkHEIGYeQcQgZh5BxCBmHkHEIGYeQcQgZh5BxCBmH0B+J71AUJiXz4QAAAABJRU5ErkJggg==">
+<style>
+:root{
+  --bg:#f4f1ec;--card:#ffffff;--ink:#1f2420;--mute:#6b726c;--line:#e3ded5;
+  --accent:#2b3f8f;--accent2:#e0782a;--free:#dff1e6;--freeink:#1d5a3b;
+  --visit:#fbe3d9;--visitink:#8f3a25;--busy:#e8e6e1;--busyink:#55595a;--warn:#b3402a;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#151815;--card:#1f2420;--ink:#eef1ec;--mute:#9aa39b;--line:#2f3631;
+    --accent:#647be8;--accent2:#f5a15c;--free:#1f3a2c;--freeink:#9be0bb;
+    --visit:#47261d;--visitink:#f4b09d;--busy:#2b2f2c;--busyink:#b3b8b3;--warn:#f08a70;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#151815;--card:#1f2420;--ink:#eef1ec;--mute:#9aa39b;--line:#2f3631;
+  --accent:#647be8;--accent2:#f5a15c;--free:#1f3a2c;--freeink:#9be0bb;
+  --visit:#47261d;--visitink:#f4b09d;--busy:#2b2f2c;--busyink:#b3b8b3;--warn:#f08a70;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:640px;margin:0 auto;padding:18px 16px 90px}
+h1{font-size:26px;margin:6px 0 2px;letter-spacing:-.02em}
+.sub{color:var(--mute);margin:0 0 16px;font-size:14px}
+.brand{display:flex;align-items:center;gap:12px;margin:6px 0 2px}
+.brand svg{width:48px;height:48px;flex:none;border-radius:12px}
+.brand h1{margin:0}
+.tabs{display:flex;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px;margin-bottom:16px;position:sticky;top:8px;z-index:5}
+.tabs button{flex:1;border:0;background:transparent;color:var(--mute);padding:10px 8px;border-radius:10px;font:inherit;font-weight:600;cursor:pointer}
+.tabs button.on{background:var(--accent);color:#fff}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px}
+.card h2{font-size:15px;margin:0 0 10px;color:var(--mute);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.big{font-size:34px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.neg{color:var(--warn)}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>*{flex:1;min-width:130px}
+.stat{background:var(--bg);border-radius:14px;padding:12px}
+.stat small{display:block;color:var(--mute);font-size:12px;margin-bottom:2px}
+.stat b{font-size:20px}
+label{display:block;font-size:13px;color:var(--mute);margin:10px 0 4px}
+input,select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 12px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:0}
+.btn{border:0;background:var(--accent);color:#fff;font:inherit;font-weight:600;padding:12px 16px;border-radius:12px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--line)}
+.btn.small{padding:8px 12px;font-size:14px}
+.btn.danger{background:transparent;color:var(--warn);border:1px solid var(--line)}
+.bar{height:12px;background:var(--bg);border-radius:99px;overflow:hidden;margin:10px 0 4px}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .3s}
+.bar i.over{background:var(--warn)}
+.seg{display:flex;background:var(--bg);border-radius:12px;padding:3px;margin-bottom:6px}
+.seg button{flex:1;border:0;background:transparent;color:var(--mute);padding:9px;border-radius:10px;font:inherit;font-weight:600;cursor:pointer}
+.seg button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.tx{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.tx:last-child{border-bottom:0}
+.tx .m{flex:1;min-width:0}
+.tx .m b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tx .m small{color:var(--mute)}
+.tx .a{font-weight:700;white-space:nowrap}
+.tx .a.in{color:var(--accent)}
+.x{border:0;background:transparent;color:var(--mute);font-size:20px;cursor:pointer;padding:4px 8px}
+.month{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.month b{font-size:17px}
+.month button{border:1px solid var(--line);background:var(--card);color:var(--ink);width:40px;height:40px;border-radius:12px;font-size:18px;cursor:pointer}
+.cat{display:flex;justify-content:space-between;font-size:14px;padding:4px 0}
+.empty{color:var(--mute);text-align:center;padding:14px 0;font-size:14px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.dow{font-size:11px;color:var(--mute);text-align:center;font-weight:600}
+.day{aspect-ratio:1/1.05;border-radius:12px;border:2px solid transparent;background:var(--bg);color:var(--ink);padding:4px 2px;font:inherit;font-size:13px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;overflow:hidden}
+.day b{font-size:16px}
+.day span{font-size:10px;line-height:1.1;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 2px}
+.day.free{background:var(--free);color:var(--freeink)}
+.day.visit{background:var(--visit);color:var(--visitink)}
+.day.busy{background:var(--busy);color:var(--busyink)}
+.day.apt{border-color:var(--accent)}
+.day.out{opacity:.55}
+.day.blank{visibility:hidden}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--mute);margin-top:12px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:5px;vertical-align:-1px}
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:center;z-index:20}
+.sheet.show{display:flex}
+.sheet .box{background:var(--card);width:100%;max-width:640px;border-radius:22px 22px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))}
+.sheet h3{margin:0 0 4px;font-size:18px}
+.free-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{background:var(--free);color:var(--freeink);border-radius:99px;padding:5px 11px;font-size:13px;font-weight:600}
+.note{font-size:12px;color:var(--mute);margin-top:10px}
+.hide{display:none}
+.bseg button{font-size:14px;padding:9px 4px}
+.mute{color:var(--mute);font-size:12px}
+.item{padding:12px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+.ih{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.ih b{font-size:16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.hc{background:var(--bg);border-radius:10px;padding:5px 9px;font-size:12px;color:var(--mute);display:inline-flex;gap:6px;align-items:center}
+.hc button{border:0;background:transparent;color:var(--mute);cursor:pointer;font-size:14px;padding:0}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.yb{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;margin:9px 0}
+.yl{font-weight:600;font-size:14px}
+.ybar{height:14px;background:var(--bg);border-radius:99px;overflow:hidden}
+.ybar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.ybar i.b2{background:var(--accent2)}
+.yv{text-align:right;font-weight:700;font-size:14px}
+.yv small{display:block;color:var(--mute);font-weight:500;font-size:11px}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:7px 8px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:var(--card)}
+details summary{cursor:pointer;margin:6px 0}
+.gp{font-size:13px;font-weight:700;color:var(--accent);margin:14px 0 2px;text-transform:uppercase;letter-spacing:.05em}
+.gift{padding:8px 0;border-bottom:1px solid var(--line)}
+.gift:last-child{border-bottom:0}
+.gh{display:flex;align-items:center;gap:8px}
+.gh .m{flex:1;min-width:0}
+.gh .m b{display:block}
+.gh .m small{color:var(--mute)}
+.gc{display:flex;gap:18px;margin-top:6px}
+.ck{display:flex;align-items:center;gap:7px;margin:0;color:var(--ink);font-size:14px;cursor:pointer}
+.ck input{width:22px;height:22px;padding:0;accent-color:var(--accent);flex:none}
+.gift.done .gh .m b{text-decoration:line-through;color:var(--mute)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(24px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:14px;font-size:14px;z-index:40;max-width:90%;text-align:center;box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.doors{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.door{aspect-ratio:1/1;border-radius:14px;border:2px dashed var(--line);background:var(--bg);color:var(--ink);font:inherit;padding:4px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;position:relative;overflow:hidden}
+.door b{font-size:20px;line-height:1.1}
+.door span{font-size:10px;line-height:1.15;max-width:100%;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-align:center;padding:0 2px;word-break:break-word}
+.door em{position:absolute;top:3px;right:5px;font-style:normal;font-size:12px}
+.door.plan{background:var(--visit);color:var(--visitink);border-style:solid;border-color:transparent}
+.door.bought{background:var(--busy);color:var(--busyink);border-style:solid;border-color:transparent}
+.door.wrapped{background:var(--free);color:var(--freeink);border-style:solid;border-color:transparent}
+.door.today{border-color:var(--accent);border-style:solid}
+.bk-toggle{width:100%;margin:18px 0 4px;border:1px solid var(--line);background:var(--card);color:var(--accent);font:inherit;font-weight:600;font-size:13.5px;padding:12px;border-radius:12px;cursor:pointer}
+.bk-toggle:active{opacity:.6}
+#bkArea,#shArea{margin-top:10px}
+.tabs button{font-size:12.5px;padding:10px 2px}
+.sug{border:1px solid var(--line);background:var(--card);color:var(--accent);font:inherit;font-size:13px;font-weight:600;padding:6px 11px;border-radius:99px;cursor:pointer}
+.sug:active{opacity:.6}
+.pk span{margin-left:2px}
+.pk.done span{text-decoration:line-through;color:var(--mute)}
+.sheet .box{max-height:88vh;overflow-y:auto}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <svg viewBox="0 0 120 120" role="img" aria-label="Heimspiel Logo"><rect width="120" height="120" rx="28" fill="#111111"/><rect x="28" y="34" width="64" height="58" rx="10" fill="#ffffff"/><path d="M28 52V44a10 10 0 0 1 10-10H82a10 10 0 0 1 10 10V52Z" fill="#e8731a"/><rect x="42" y="24" width="8" height="18" rx="4" fill="#ffffff" stroke="#111111" stroke-width="3"/><rect x="70" y="24" width="8" height="18" rx="4" fill="#ffffff" stroke="#111111" stroke-width="3"/><polygon points="60,58 64,68 75,68 66,75 69,86 60,79 51,86 54,75 45,68 56,68" fill="#e8731a" stroke="#111111" stroke-width="3" stroke-linejoin="round"/></svg>
+    <h1>Heimspiel</h1>
+  </div>
+  <p class="sub" id="today"></p>
+
+  <div class="tabs">
+    <button id="t_apt" class="on">Ferienwohnung</button>
+    <button id="t_adv">Adventskalender</button>
+    <button id="t_gift">Geschenke</button>
+  </div>
+
+  <!-- WEIHNACHTEN -->
+  <section id="p_apt">
+    <div class="card">
+      <h2>Ferienwohnung</h2>
+      <div class="row">
+        <div><label for="yr">Jahr</label><input id="yr" type="number" inputmode="numeric" min="2020" max="2100"></div>
+        <div><label for="aptName">Name oder Ort</label><input id="aptName" type="text" placeholder="z. B. Ferienwohnung am Markt"></div>
+      </div>
+      <div class="row">
+        <div><label for="aptFrom">Gemietet ab (Anreise)</label><input id="aptFrom" type="date"></div>
+        <div><label for="aptTo">Gemietet bis (Abreise)</label><input id="aptTo" type="date"></div>
+      </div>
+      <div class="row" style="margin-top:12px">
+        <div class="stat"><small>Tage in der Wohnung</small><b id="sAptDays">0</b></div>
+        <div class="stat"><small>Noch frei für Besuche</small><b id="sFree">0</b></div>
+        <div class="stat"><small>Schon verplant</small><b id="sBooked">0</b></div>
+      </div>
+    </div>
+
+<div class="card">
+      <h2>Kalender</h2>
+      <div class="cal" id="cal"></div>
+      <div class="legend">
+        <span><i style="background:var(--free)"></i>Frei</span>
+        <span><i style="background:var(--visit)"></i>Besuch bei Familie</span>
+        <span><i style="background:var(--busy)"></i>Anderweitig belegt</span>
+        <span><i style="border:2px solid var(--accent);background:transparent"></i>In der Wohnung</span>
+      </div>
+      <div class="note">Tippe auf einen Tag, um ihn zu bearbeiten. Pro Tag sind mehrere Termine möglich, zum Beispiel mittags die Oma und abends Freunde. Tage ohne Eintrag zählen innerhalb der Mietzeit als frei.</div>
+    </div>
+
+<div class="card">
+      <h2>Freie Tage in der Wohnung</h2>
+      <div id="freeList"></div>
+    </div>
+
+<div class="card">
+      <h2>Verplante Tage</h2>
+      <div id="bookedList"></div>
+    </div>
+    <div class="card">
+      <h2>Packliste Ferienwohnung</h2>
+      <div class="bar"><i id="packBar" style="width:0"></i></div>
+      <div class="note" id="packSum" style="margin:4px 0 10px"></div>
+      <div id="packList"></div>
+      <div class="acts" id="packActs"></div>
+      <div class="row" style="margin-top:12px">
+        <div style="flex:3"><label for="packIn">Was muss mit?</label><input id="packIn" type="text" placeholder="z. B. Bettwäsche, Handtücher"></div>
+      </div>
+      <div style="margin-top:12px"><button class="btn" id="packAdd" style="width:100%">Zur Liste hinzufügen</button></div>
+      <div class="mute" style="margin-top:14px">Vorschläge zum Antippen</div>
+      <div class="chips" id="packSug"></div>
+      <div class="note">Mit „Haken zurücksetzen“ kannst du die Liste im nächsten Jahr wieder verwenden.</div>
+    </div>
+  </section>
+
+  <!-- GESCHENKE -->
+  <section id="p_gift" class="hide">
+    <div class="card">
+      <h2>Geschenke</h2>
+      <div class="bar"><i id="giftBar" style="width:0"></i></div>
+      <div class="note" id="giftSum" style="margin:4px 0 10px"></div>
+      <div class="seg" id="giftFilter">
+        <button data-f="all" class="on">Alle</button>
+        <button data-f="buy">Zu kaufen</button>
+        <button data-f="wrap">Zu verpacken</button>
+      </div>
+      <div class="seg" id="giftSort">
+        <button data-s="to" class="on">Nach Empfänger</button>
+        <button data-s="from">Nach Schenker</button>
+      </div>
+      <div id="giftList"></div>
+      <div style="margin-top:14px;border-top:1px solid var(--line);padding-top:4px">
+        <div class="row" style="align-items:flex-end">
+          <div><label for="gPerson">Für wen</label><input id="gPerson" type="text" list="gPersonList" autocomplete="off" placeholder="z. B. Jonas"></div>
+          <div><label for="gFrom">Von wem</label><input id="gFrom" type="text" list="gFromList" autocomplete="off" placeholder="z. B. Oma"></div>
+          <div><label for="gName">Geschenk</label><input id="gName" type="text" placeholder="z. B. Buch"></div>
+          <div><label for="gPrice">Preis (optional)</label><input id="gPrice" type="number" inputmode="decimal" step="0.01" placeholder="0,00"></div>
+        </div>
+        <div class="note" style="margin:8px 0 0">„Von wem“ leer lassen, wenn ihr selbst schenkt. Trage dort zum Beispiel Oma ein, wenn ihr es für sie besorgt.</div>
+        <datalist id="gPersonList"></datalist><datalist id="gFromList"></datalist>
+        <div style="margin-top:12px"><button class="btn" id="gAdd" style="width:100%">Geschenk hinzufügen</button></div>
+        <div style="margin-top:8px"><button class="btn ghost hide" id="gCancel" style="width:100%">Abbrechen</button></div>
+      </div>
+    </div>
+  
+    <div class="card">
+      <h2>Geschenkideen</h2>
+      <div id="gIdeaList"></div>
+      <div class="row" style="align-items:flex-end;margin-top:12px">
+        <div><label for="giPerson">Für wen</label><input id="giPerson" type="text" list="gPersonList" autocomplete="off" placeholder="z. B. Jonas"></div>
+        <div><label for="giFrom">Von wem</label><input id="giFrom" type="text" list="gFromList" autocomplete="off" placeholder="z. B. Oma"></div>
+        <div style="flex:2"><label for="giText">Idee</label><input id="giText" type="text" placeholder="z. B. Kopfhörer"></div>
+        <div><label for="giPrice">Preis (optional)</label><input id="giPrice" type="number" inputmode="decimal" step="0.01" placeholder="0,00"></div>
+      </div>
+      <div style="margin-top:12px"><button class="btn" id="giAdd" style="width:100%">Idee hinzufügen</button></div>
+      <div style="margin-top:8px"><button class="btn ghost hide" id="giCancel" style="width:100%">Abbrechen</button></div>
+      <div class="note">Sammle hier Ideen, bis ihr euch entscheidet. „Von wem“ leer lassen, wenn ihr selbst schenkt. Mit „Zur Liste“ wird aus einer Idee ein Geschenk, das ihr besorgen könnt.</div>
+    </div>
+  </section>
+
+
+  <!-- ADVENTSKALENDER -->
+  <section id="p_adv" class="hide">
+    <div class="card">
+      <h2 id="advTitle">Adventskalender</h2>
+      <label for="advName">Für wen</label>
+      <input id="advName" type="text" placeholder="Jonas">
+      <div class="bar"><i id="advBar" style="width:0"></i></div>
+      <div class="row" style="margin-top:12px">
+        <div class="stat"><small>Geplant</small><b id="sAdvPlan">0 von 24</b></div>
+        <div class="stat"><small>Besorgt</small><b id="sAdvBuy">0</b></div>
+        <div class="stat"><small>Eingepackt</small><b id="sAdvWrap">0</b></div>
+      </div>
+      <div class="note" id="advNote"></div>
+    </div>
+
+    <div class="card">
+      <h2>Türchen</h2>
+      <div class="doors" id="doors"></div>
+      <div class="legend">
+        <span><i style="border:2px dashed var(--line);background:transparent"></i>Leer</span>
+        <span><i style="background:var(--visit)"></i>Geplant</span>
+        <span><i style="background:var(--busy)"></i>Besorgt</span>
+        <span><i style="background:var(--free)"></i>Eingepackt</span>
+      </div>
+      <div class="note">Tippe auf ein Türchen, um den Inhalt einzutragen. Ein Rahmen markiert den heutigen Tag im Dezember.</div>
+    </div>
+
+    <div class="card">
+      <h2>Noch zu erledigen</h2>
+      <div id="advTodo"></div>
+    </div>
+
+    <div class="card">
+      <h2>Ideensammlung</h2>
+      <div id="ideaList"></div>
+      <div class="row" style="margin-top:12px">
+        <div style="flex:3"><label for="ideaIn">Neue Idee</label><input id="ideaIn" type="text" placeholder="z. B. Lego Figur, Bastelset"></div>
+      </div>
+      <div style="margin-top:12px"><button class="btn" id="ideaAdd" style="width:100%">Idee hinzufügen</button></div>
+      <div class="note">Sammle hier Ideen und verteile sie später mit einem Tipp auf ein Türchen.</div>
+    </div>
+  </section>
+
+  <button type="button" class="bk-toggle" id="shToggle" aria-expanded="false">👥 Teilen mit Julia ▾</button>
+  <div class="card hide" id="shArea">
+      <button class="btn" id="shareRep" style="width:100%">Bericht als Text teilen</button>
+      <div class="note" id="syncNote" style="margin-top:10px">Nur auf diesem Gerät gespeichert.</div>
+    </div>
+
+  <button type="button" class="bk-toggle" id="bkToggle" aria-expanded="false" style="margin-top:10px">🛟 Datensicherung ▾</button>
+  <div class="card hide" id="bkArea">
+    <div class="note" id="bkInfo" style="margin:0 0 10px"></div>
+    <div class="row">
+      <button class="btn small" id="bkFile">Als Datei speichern</button>
+      <button class="btn ghost small" id="bkShare">Sicherung teilen</button>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn ghost small" id="bkLoad">Aus Datei laden</button>
+      <button class="btn ghost small" id="exp">Daten kopieren</button>
+      <button class="btn ghost small" id="imp">Daten einfügen</button>
+    </div>
+    <input type="file" id="bkInput" accept=".json,application/json" class="hide">
+    <div class="note">Alle Daten liegen nur in diesem Browser auf deinem Gerät. Speichere deshalb ab und zu eine Sicherungsdatei, zum Beispiel in der Dateien App oder in iCloud. Mit „Sicherung teilen“ schickst du sie dir selbst oder an ein anderes Gerät. Zum Wiederherstellen wählst du „Aus Datei laden“.</div>
+    <div style="margin-top:16px;border-top:1px solid var(--line);padding-top:12px">
+      <div class="gp" style="margin-top:0">Automatische Sicherungen</div>
+      <div class="note" style="margin:4px 0 8px">Heimspiel sichert deinen Stand automatisch, für jeden der letzten 14 Tage ein Stand auf diesem Gerät. Mit „Wiederherstellen“ holst du einen Stand zurück. Der aktuelle Stand wird davor ebenfalls gesichert.</div>
+      <div id="autoList"></div>
+    </div>
+  </div>
+  <div class="note" id="verInfo" style="text-align:center;margin-top:14px"></div>
+</div>
+
+<div class="sheet" id="sheet">
+  <div class="box">
+    <h3 id="sheetTitle"></h3>
+    <div id="dItems"></div>
+    <div class="gp" id="dFormTitle">Neuer Termin</div>
+    <label for="dState">Art</label>
+    <select id="dState">
+      <option value="visit">Besuch bei Familie</option>
+      <option value="busy">Anderweitig belegt</option>
+      <option value="free">Notiz, Tag bleibt frei</option>
+    </select>
+    <div class="row">
+      <div><label for="dTime">Uhrzeit (optional)</label><input id="dTime" type="time"></div>
+      <div style="flex:2"><label for="dText">Wer oder was?</label><input id="dText" type="text" placeholder="z. B. Oma und Opa, Mittagessen"></div>
+    </div>
+    <div class="row" style="margin-top:16px">
+      <button class="btn" id="dSave">Termin hinzufügen</button>
+      <button class="btn ghost" id="dCancel">Fertig</button>
+    </div>
+  </div>
+</div>
+
+<div class="sheet" id="asheet">
+  <div class="box">
+    <h3 id="aTitle"></h3>
+    <label for="aText">Was kommt rein?</label>
+    <input id="aText" type="text" placeholder="z. B. Schokolade, Socken, Gutschein">
+    <label for="aPrice">Preis in Euro (optional)</label>
+    <input id="aPrice" type="number" inputmode="decimal" step="0.01" placeholder="0,00">
+    <div class="gc" style="margin-top:12px">
+      <label class="ck"><input type="checkbox" id="aBought"> Besorgt</label>
+      <label class="ck"><input type="checkbox" id="aWrapped"> Eingepackt</label>
+    </div>
+    <div class="row" style="margin-top:16px">
+      <button class="btn" id="aSave">Speichern</button>
+      <button class="btn ghost" id="aCancel">Abbrechen</button>
+    </div>
+    <div style="margin-top:10px"><button class="btn danger small" id="aClear">Türchen leeren</button></div>
+  </div>
+</div>
+
+<script>
+/* FIREBASE EINSTELLUNGEN
+   Trage hier die Werte aus deinem Firebase Projekt ein (Projekteinstellungen, Web App).
+   Bleibt apiKey leer, arbeitet die App nur lokal auf diesem Gerät. */
+window.TAGWERK_FIREBASE={
+  apiKey:"AIzaSyBFbKIBKr0gr621e8XSljAG4lGXOSrIxwo",
+  authDomain:"homedashboard-8d951.firebaseapp.com",
+  projectId:"homedashboard-8d951",
+  storageBucket:"homedashboard-8d951.firebasestorage.app",
+  messagingSenderId:"443725141758",
+  appId:"1:443725141758:web:64331ff8100f27acd037af",
+  /* Heimspiel nutzt die bestehende Sammlung tagwerk, in der die Regeln schon passen.
+     Es gibt genau ein eigenes Dokument heimspiel, das die Tagwerk App nicht anfasst.
+     Ihr nutzt die App nur zu zweit, deshalb braucht es keinen Code. */
+  collection:"tagwerk",
+  room:"heimspiel"
+};
+</script>
+<script>
+(function(){
+  var KEY="mein_alltag_v1";
+  var CATS=["Lebensmittel","Wohnen","Mobilität","Freizeit","Shopping","Gesundheit","Abos","Sonstiges","Gehalt"];
+  var WD=["So","Mo","Di","Mi","Do","Fr","Sa"];
+  var WDL=["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"];
+  var MON=["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+  var now=new Date();
+  var state=load();
+  var view={y:now.getFullYear(),m:now.getMonth()};
+  var txType="out";
+  var editDay=null;
+
+  function defaults(){
+    var y=now.getFullYear();
+    if(now.getMonth()===11&&now.getDate()>27) y=y+1;
+    return {start:0,monthly:0,tx:[],fix:[],sal:[],sav:[],xmas:{year:y,aptName:"",aptFrom:"",aptTo:"",days:{}}};
+  }
+  function load(){
+    try{
+      var r=localStorage.getItem(KEY);
+      if(r){var o=JSON.parse(r);var d=defaults();
+        o.start=o.start||0;o.monthly=o.monthly||0;o.tx=o.tx||[];o.fix=o.fix||[];o.sal=o.sal||[];o.sav=o.sav||[];
+        o.xmas=Object.assign(d.xmas,o.xmas||{});o.xmas.days=o.xmas.days||{};
+        return o;}
+    }catch(e){}
+    return defaults();
+  }
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}if(typeof pushX==="function")pushX();if(typeof autoBackupSoon==="function")autoBackupSoon();}
+
+  function $(id){return document.getElementById(id);}
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+  function eur(n){
+    var s=Math.abs(n).toLocaleString("de-DE",{style:"currency",currency:"EUR"});
+    return n<0?"minus "+s:s;
+  }
+  function pad(n){return (n<10?"0":"")+n;}
+  function iso(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
+  function parse(s){var p=s.split("-");return new Date(+p[0],+p[1]-1,+p[2]);}
+  function deDate(s){var d=parse(s);return pad(d.getDate())+"."+pad(d.getMonth()+1)+"."+d.getFullYear();}
+  function longDate(s){var d=parse(s);return WDL[d.getDay()]+", "+pad(d.getDate())+"."+pad(d.getMonth()+1)+".";}
+
+  $("today").textContent=WDL[now.getDay()]+", "+now.getDate()+". "+MON[now.getMonth()]+" "+now.getFullYear();
+
+  /* Weihnachten */
+  var X=state.xmas;
+  $("yr").value=X.year;$("aptName").value=X.aptName;$("aptFrom").value=X.aptFrom;$("aptTo").value=X.aptTo;
+  $("yr").onchange=function(){var v=parseInt($("yr").value,10);if(v>2000&&v<2200){X.year=v;save();renderX();}};
+  $("aptName").onchange=function(){X.aptName=$("aptName").value.trim();save();};
+  $("aptFrom").onchange=function(){X.aptFrom=$("aptFrom").value;if(X.aptFrom&&!X.aptTo)X.aptTo=X.aptFrom;$("aptTo").value=X.aptTo;save();renderX();};
+  $("aptTo").onchange=function(){X.aptTo=$("aptTo").value;save();renderX();};
+
+  function inApt(s){return X.aptFrom&&X.aptTo&&s>=X.aptFrom&&s<=X.aptTo;}
+  function dayState(s){var d=X.days[s];return d?d.s:"free";}
+
+  function renderX(){
+    var start=new Date(X.year,11,20),end=new Date(X.year+1,0,3);
+    if(X.aptFrom){var a=parse(X.aptFrom);if(a<start)start=a;}
+    if(X.aptTo){var b=parse(X.aptTo);if(b>end)end=b;}
+    var html="";
+    for(var i=1;i<=7;i++){html+='<div class="dow">'+WD[i%7]+'</div>';}
+    var lead=(start.getDay()+6)%7;
+    for(var k=0;k<lead;k++)html+='<div class="day blank"></div>';
+    var d=new Date(start);
+    var aptDays=0,freeDays=0,bookedDays=0,freeArr=[],bookedArr=[];
+    var chosen=!!(X.aptFrom&&X.aptTo);
+    while(d<=end){
+      var s=iso(d),st=dayState(s),apt=inApt(s);
+      var cls="day "+(apt||!chosen?st:"")+(apt?" apt":"")+(chosen&&!apt?" out":"");
+      var its=itemsOf(X.days[s]),t=its.length>1?its.length+" Termine":(its[0]?its[0].t:"");
+      html+='<button class="'+cls+'" data-d="'+s+'"><b>'+d.getDate()+'</b><small>'+(d.getDate()===1||d.getTime()===start.getTime()?MON[d.getMonth()].slice(0,3):"")+'</small><span>'+esc(t)+'</span></button>';
+      if(apt){
+        aptDays++;
+        if(st==="free"){freeDays++;freeArr.push(s);}
+        else{bookedDays++;bookedArr.push(s);}
+      }
+      d.setDate(d.getDate()+1);
+    }
+    $("cal").innerHTML=html;
+    document.querySelectorAll("[data-d]").forEach(function(btn){btn.onclick=function(){openDay(btn.getAttribute("data-d"));};});
+    $("sAptDays").textContent=aptDays;$("sFree").textContent=freeDays;$("sBooked").textContent=bookedDays;
+    $("freeList").innerHTML=!chosen?'<div class="empty">Trage oben ein, von wann bis wann die Wohnung gemietet ist.</div>':
+      (freeArr.length?'<div class="free-list">'+freeArr.map(function(s){return '<span class="chip">'+longDate(s)+'</span>';}).join("")+'</div>':'<div class="empty">Alle Tage sind verplant.</div>');
+    $("bookedList").innerHTML=!chosen?'<div class="empty">Noch keine Mietzeit eingetragen.</div>':
+      (bookedArr.length?bookedArr.map(function(s){
+        var its=sortItems(itemsOf(X.days[s])).filter(function(x){return x.st!=="free";});
+        return '<div class="tx"><div class="m"><b>'+longDate(s)+'</b>'+its.map(function(x){
+          return '<small style="display:block">'+(x.time?esc(x.time)+' Uhr · ':'')+(x.st==="visit"?"Besuch":"Belegt")+(x.t?" · "+esc(x.t):"")+'</small>';
+        }).join("")+'</div></div>';
+      }).join(""):'<div class="empty">Noch nichts verplant.</div>');
+  }
+
+  function itemsOf(e){
+    if(!e)return [];
+    if(Array.isArray(e.items))return e.items;
+    if((e.s&&e.s!=="free")||e.t)return [{id:"l0",st:e.s||"free",t:e.t||"",time:""}];
+    return [];
+  }
+  function sortItems(a){
+    return a.slice().sort(function(x,y){var tx=x.time||"99:99",ty=y.time||"99:99";return tx<ty?-1:tx>ty?1:0;});
+  }
+  function commitDay(s,items){
+    items=sortItems(items);
+    if(!items.length){delete X.days[s];return;}
+    var st=items.some(function(i){return i.st==="visit";})?"visit":(items.some(function(i){return i.st==="busy";})?"busy":"free");
+    X.days[s]={s:st,t:items.map(function(i){return i.t;}).filter(Boolean).join(", "),items:items};
+  }
+  function itemLabel(st){return st==="visit"?"Besuch":(st==="busy"?"Belegt":"Notiz");}
+  var editItem=null;
+  function setForm(it){
+    editItem=it?it.id:null;
+    $("dState").value=it?it.st:"visit";
+    $("dTime").value=it?(it.time||""):"";
+    $("dText").value=it?(it.t||""):"";
+    $("dFormTitle").textContent=it?"Termin ändern":"Neuer Termin";
+    $("dSave").textContent=it?"Änderung speichern":"Termin hinzufügen";
+  }
+  function renderDayItems(){
+    var items=sortItems(itemsOf(X.days[editDay]));
+    $("dItems").innerHTML=items.length?items.map(function(i){
+      return '<div class="tx"><div class="m"><b>'+(i.time?esc(i.time)+' Uhr · ':'')+esc(i.t||itemLabel(i.st))+'</b><small>'+itemLabel(i.st)+'</small></div><button class="btn ghost small" data-ie="'+i.id+'">Ändern</button><button class="x" data-idel="'+i.id+'" aria-label="Löschen">×</button></div>';
+    }).join(""):'<div class="empty">Noch kein Termin an diesem Tag.</div>';
+  }
+  function openDay(s){
+    editDay=s;
+    $("sheetTitle").textContent=longDate(s)+parse(s).getFullYear();
+    renderDayItems();setForm(null);
+    $("sheet").classList.add("show");
+  }
+  $("dCancel").onclick=function(){$("sheet").classList.remove("show");};
+  $("sheet").onclick=function(e){if(e.target===$("sheet"))$("sheet").classList.remove("show");};
+  $("dItems").addEventListener("click",function(ev){
+    var del=ev.target.closest("[data-idel]"),ed=ev.target.closest("[data-ie]"),items=itemsOf(X.days[editDay]).map(function(i){return Object.assign({},i);});
+    if(del){
+      var id=del.getAttribute("data-idel");
+      commitDay(editDay,items.filter(function(i){return i.id!==id;}));
+      if(editItem===id)setForm(null);
+      save();renderX();renderDayItems();
+    }else if(ed){
+      var it=items.filter(function(i){return i.id===ed.getAttribute("data-ie");})[0];
+      if(it)setForm(it);
+    }
+  });
+  $("dSave").onclick=function(){
+    var items=itemsOf(X.days[editDay]).map(function(i){return Object.assign({},i);});
+    var st=$("dState").value,tm=$("dTime").value,t=$("dText").value.trim();
+    if(st==="free"&&!t){$("dText").focus();return;}
+    if(editItem){items.forEach(function(i){if(i.id===editItem){i.st=st;i.time=tm;i.t=t;}});}
+    else items.push({id:newId(),st:st,time:tm,t:t});
+    commitDay(editDay,items);
+    save();renderX();renderDayItems();setForm(null);
+  };
+
+  /* Sicherung */
+  $("exp").onclick=function(){
+    var txt=JSON.stringify(state);
+    var done=function(){bkMark();alert("Die Daten wurden in die Zwischenablage kopiert.");};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,function(){prompt("Bitte manuell kopieren:",txt);});}
+    else prompt("Bitte manuell kopieren:",txt);
+  };
+  $("imp").onclick=function(){
+    var txt=prompt("Gesicherte Daten hier einfügen:");
+    if(!txt)return;
+    try{
+      var o=JSON.parse(txt);
+      if(!o||!o.xmas)throw 1;
+      state=o;localStorage.setItem(KEY,JSON.stringify(state));location.reload();
+    }catch(e){alert("Die Daten konnten nicht gelesen werden.");}
+  };
+
+  /* Weihnachten teilen */
+  function report(){
+    var L=["Heimspiel "+X.year+(X.aptName?": "+X.aptName:"")];
+    if(!(X.aptFrom&&X.aptTo)){L.push("Die Mietzeit der Ferienwohnung ist noch nicht eingetragen.");giftLines(L);packLines(L);advLines(L);return L.join("\n");}
+    L.push("Ferienwohnung gemietet vom "+deDate(X.aptFrom)+" bis "+deDate(X.aptTo));
+    var free=[],booked=[],d=parse(X.aptFrom),end=parse(X.aptTo);
+    while(d<=end){
+      var s=iso(d),e=X.days[s];
+      var lab=WD[d.getDay()]+" "+pad(d.getDate())+"."+pad(d.getMonth()+1)+".";
+      if(!e||e.s==="free")free.push(lab);
+      else booked.push(lab+": "+sortItems(itemsOf(e)).filter(function(i){return i.st!=="free";}).map(function(i){return (i.time?i.time+" Uhr ":"")+(i.st==="visit"?"Besuch":"Belegt")+(i.t?", "+i.t:"");}).join("; "));
+      d.setDate(d.getDate()+1);
+    }
+    L.push("");
+    L.push("Noch frei ("+free.length+" Tage): "+(free.length?free.join(", "):"keine"));
+    if(booked.length){L.push("");L.push("Schon verplant:");booked.forEach(function(b){L.push(b);});}
+    giftLines(L);
+    packLines(L);advLines(L);
+    return L.join("\n");
+  }
+  function giftLines(L){
+    var gl=gifts(),tb=gl.filter(function(x){return !x.bought;}),tw=gl.filter(function(x){return x.bought&&!x.wrapped;});
+    if(gl.length){L.push("");L.push("Geschenke: "+gl.filter(function(x){return x.bought;}).length+" von "+gl.length+" gekauft");
+      if(tb.length){L.push("Noch zu kaufen:");tb.forEach(function(x){L.push(x.person+": "+x.name+(x.from?" (von "+x.from+")":""));});}
+      if(tw.length){L.push("Noch einzupacken:");tw.forEach(function(x){L.push(x.person+": "+x.name+(x.from?" (von "+x.from+")":""));});}}
+  }
+  function advLines(L){
+    var A=adv(),dd=A.days||{},k,e,pl=0,tb=[],tw=[];
+    for(k=1;k<=24;k++){
+      e=dd[k];
+      if(e&&String(e.t||"").trim()){
+        pl++;
+        if(!e.b)tb.push(k+": "+e.t);
+        else if(!e.w)tw.push(k+": "+e.t);
+      }
+    }
+    if(!pl)return;
+    L.push("");L.push("Adventskalender für "+advName()+": "+pl+" von 24 Türchen geplant");
+    if(tb.length){L.push("Noch zu besorgen:");tb.forEach(function(x){L.push("Türchen "+x);});}
+    if(tw.length){L.push("Noch einzupacken:");tw.forEach(function(x){L.push("Türchen "+x);});}
+  }
+  $("shareRep").onclick=function(){
+    var txt=report(),title="Heimspiel "+X.year;
+    if(navigator.share){navigator.share({title:title,text:txt}).catch(function(){});}
+    else if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){alert("Der Bericht wurde kopiert. Du kannst ihn jetzt an Julia schicken.");},function(){prompt("Bitte manuell kopieren:",txt);});}
+    else prompt("Bitte manuell kopieren:",txt);
+  };
+
+  /* Geschenke */
+  var gf="all";
+  function gifts(){X.gifts=X.gifts||[];return X.gifts;}
+  var gs="to",gEdit=null;
+  function uniq(arr){
+    var seen={},out=[];
+    arr.forEach(function(v){v=String(v||"").trim();var k=v.toLowerCase();if(v&&!seen[k]){seen[k]=1;out.push(v);}});
+    return out;
+  }
+  function renderGifts(){
+    var g=gifts(),n=g.length;
+    var bought=g.filter(function(x){return x.bought;}).length;
+    var wrapped=g.filter(function(x){return x.wrapped;}).length;
+    var sum=g.reduce(function(s,x){return s+(x.price||0);},0);
+    $("giftBar").style.width=(n?Math.round(wrapped/n*100):0)+"%";
+    $("giftSum").textContent=n?(bought+" von "+n+" gekauft, "+wrapped+" eingepackt"+(sum?". Geschätzte Kosten: "+eur(sum):"")):"Noch keine Geschenke auf der Liste.";
+    $("gPersonList").innerHTML=uniq(g.map(function(x){return x.person;}).concat([advName()],(X.giftIdeas||[]).map(function(x){return x.person;}))).map(function(v){return '<option value="'+esc(v)+'">';}).join("");
+    $("gFromList").innerHTML=uniq(g.map(function(x){return x.from;}).concat((X.giftIdeas||[]).map(function(x){return x.from;}))).map(function(v){return '<option value="'+esc(v)+'">';}).join("");
+    var key=function(x){return gs==="from"?(x.from||"Von uns"):(x.person||"Ohne Name");};
+    var list=g.filter(function(x){
+      if(gf==="buy")return !x.bought;
+      if(gf==="wrap")return x.bought&&!x.wrapped;
+      return true;
+    }).sort(function(a,b){
+      var ka=key(a).toLowerCase(),kb=key(b).toLowerCase();
+      if(ka!==kb)return ka<kb?-1:1;
+      var na=(gs==="from"?a.person:a.name||"").toLowerCase(),nb=(gs==="from"?b.person:b.name||"").toLowerCase();
+      return na<nb?-1:na>nb?1:0;
+    });
+    var h="",last=null;
+    list.forEach(function(x){
+      var k=key(x);
+      if(k!==last){h+='<div class="gp">'+(gs==="from"&&k!=="Von uns"?"Von ":"")+esc(k)+'</div>';last=k;}
+      var parts=[];
+      if(gs==="from")parts.push("Für "+(x.person||"Ohne Name"));
+      else if(x.from)parts.push("Von "+x.from);
+      if(x.price)parts.push(eur(x.price));
+      h+='<div class="gift'+(x.bought&&x.wrapped?" done":"")+'"><div class="gh"><div class="m"><b>'+esc(x.name)+'</b>'+(parts.length?'<small>'+esc(parts.join(" · "))+'</small>':'')+'</div><button class="btn ghost small" data-gedit="'+x.id+'">Ändern</button><button class="x" data-gdel="'+x.id+'" aria-label="Löschen">×</button></div>'+
+        '<div class="gc"><label class="ck"><input type="checkbox" data-g="bought" data-id="'+x.id+'"'+(x.bought?" checked":"")+'> Gekauft</label>'+
+        '<label class="ck"><input type="checkbox" data-g="wrapped" data-id="'+x.id+'"'+(x.wrapped?" checked":"")+'> Eingepackt</label></div></div>';
+    });
+    if(!list.length&&n)h='<div class="empty">'+(gf==="buy"?"Alles gekauft.":"Nichts mehr zu verpacken.")+'</div>';
+    $("giftList").innerHTML=h;
+    renderGiftIdeas();
+  }
+  var _rx=renderX;
+  renderX=function(){_rx();renderGifts();};
+  document.querySelectorAll("#giftFilter button").forEach(function(b){
+    b.onclick=function(){
+      gf=b.getAttribute("data-f");
+      document.querySelectorAll("#giftFilter button").forEach(function(x){x.classList.toggle("on",x===b);});
+      renderGifts();
+    };
+  });
+  document.querySelectorAll("#giftSort button").forEach(function(b){
+    b.onclick=function(){
+      gs=b.getAttribute("data-s");
+      document.querySelectorAll("#giftSort button").forEach(function(x){x.classList.toggle("on",x===b);});
+      renderGifts();
+    };
+  });
+  function gForm(x){
+    gEdit=x?x.id:null;
+    $("gPerson").value=x?x.person:$("gPerson").value;
+    $("gFrom").value=x?(x.from||""):$("gFrom").value;
+    $("gName").value=x?x.name:"";
+    $("gPrice").value=x&&x.price?x.price:"";
+    $("gAdd").textContent=x?"Änderung speichern":"Geschenk hinzufügen";
+    $("gCancel").classList.toggle("hide",!x);
+  }
+  $("gAdd").onclick=function(){
+    var name=$("gName").value.trim(),person=$("gPerson").value.trim(),from=$("gFrom").value.trim();
+    if(!name){$("gName").focus();return;}
+    var p=parseFloat(String($("gPrice").value).replace(",","."));
+    if(gEdit){
+      var it=gifts().filter(function(x){return x.id===gEdit;})[0];
+      if(it){it.person=person;it.from=from;it.name=name;it.price=isNaN(p)?0:p;}
+      gEdit=null;$("gPerson").value="";$("gFrom").value="";$("gName").value="";$("gPrice").value="";
+      $("gAdd").textContent="Geschenk hinzufügen";$("gCancel").classList.add("hide");
+    }else{
+      gifts().push({id:Date.now().toString(36)+Math.floor(Math.random()*10000).toString(36),person:person,from:from,name:name,price:isNaN(p)?0:p,bought:false,wrapped:false});
+      $("gName").value="";$("gPrice").value="";
+    }
+    save();renderGifts();
+  };
+  $("gCancel").onclick=function(){
+    gEdit=null;$("gPerson").value="";$("gFrom").value="";$("gName").value="";$("gPrice").value="";
+    $("gAdd").textContent="Geschenk hinzufügen";$("gCancel").classList.add("hide");
+  };
+  $("giftList").addEventListener("change",function(e){
+    var t=e.target;if(!t.getAttribute("data-g"))return;
+    var it=gifts().filter(function(x){return x.id===t.getAttribute("data-id");})[0];if(!it)return;
+    var k=t.getAttribute("data-g");
+    it[k]=t.checked;
+    if(k==="wrapped"&&t.checked)it.bought=true;
+    if(k==="bought"&&!t.checked)it.wrapped=false;
+    save();renderGifts();
+  });
+  $("giftList").addEventListener("click",function(e){
+    var ed=e.target.closest("[data-gedit]");
+    if(ed){
+      var it=gifts().filter(function(x){return x.id===ed.getAttribute("data-gedit");})[0];
+      if(it){gForm(it);$("gName").scrollIntoView({behavior:"smooth",block:"center"});}
+      return;
+    }
+    var t=e.target.closest("[data-gdel]");if(!t)return;
+    var id=t.getAttribute("data-gdel");
+    if(confirm("Dieses Geschenk von der Liste löschen?")){if(gEdit===id)$("gCancel").click();X.gifts=gifts().filter(function(x){return x.id!==id;});save();renderGifts();}
+  });
+
+  /* Tabs */
+  var TABS=["apt","adv","gift"];
+  function tab(n){
+    TABS.forEach(function(k){
+      $("p_"+k).classList.toggle("hide",k!==n);
+      $("t_"+k).classList.toggle("on",k===n);
+    });
+    window.scrollTo(0,0);
+  }
+  TABS.forEach(function(k){$("t_"+k).onclick=function(){tab(k);};});
+
+  /* Adventskalender */
+  var DOORS=24,editDoor=null;
+  function adv(){return X.advent||{name:"Jonas",days:{},ideas:[]};}
+  function advW(){
+    X.advent=X.advent||{};var a=X.advent;
+    if(a.name==null)a.name="Jonas";
+    a.days=a.days||{};a.ideas=a.ideas||[];
+    return a;
+  }
+  function advName(){var n=(adv().name||"").trim();return n||"Jonas";}
+  function dstate(e){
+    if(!e||!String(e.t||"").trim())return "empty";
+    if(e.w)return "wrapped";
+    if(e.b)return "bought";
+    return "plan";
+  }
+  function newId(){return Date.now().toString(36)+Math.floor(Math.random()*10000).toString(36);}
+  function renderAdv(){
+    var a=adv(),days=a.days||{},ideas=a.ideas||[];
+    var nm=advName();
+    $("advTitle").textContent="Adventskalender für "+nm;
+    if(document.activeElement!==$("advName"))$("advName").value=a.name==null?"Jonas":a.name;
+    var plan=0,buy=0,wrap=0,sum=0,h="",todoBuy=[],todoWrap=[],k,e,st;
+    var dec=(now.getFullYear()===X.year&&now.getMonth()===11)?now.getDate():0;
+    for(k=1;k<=DOORS;k++){
+      e=days[k];st=dstate(e);
+      if(st!=="empty"){
+        plan++;sum+=e.p||0;
+        if(st==="bought"||st==="wrapped")buy++;
+        if(st==="wrapped")wrap++;
+        if(st==="plan")todoBuy.push(k);
+        if(st==="bought")todoWrap.push(k);
+      }
+      var mark=st==="wrapped"?"🎁":(st==="bought"?"✓":"");
+      h+='<button class="door '+(st==="empty"?"":st)+(dec===k?" today":"")+'" data-door="'+k+'"><b>'+k+'</b><span>'+(st==="empty"?"":esc(e.t))+'</span>'+(mark?'<em>'+mark+'</em>':'')+'</button>';
+    }
+    $("doors").innerHTML=h;
+    $("advBar").style.width=Math.round(wrap/DOORS*100)+"%";
+    $("sAdvPlan").textContent=plan+" von "+DOORS;
+    $("sAdvBuy").textContent=buy;
+    $("sAdvWrap").textContent=wrap;
+    var t0=new Date(now.getFullYear(),now.getMonth(),now.getDate()),d1=new Date(X.year,11,1);
+    var diff=Math.round((d1-t0)/86400000),note="";
+    if(diff>0)note="Noch "+diff+(diff===1?" Tag":" Tage")+" bis zum 1. Dezember "+X.year+". ";
+    else if(diff<=0&&diff>-24)note="Der Advent läuft. ";
+    if(sum)note+="Geschätzte Kosten: "+eur(sum)+".";
+    $("advNote").textContent=note.trim();
+
+    var th="";
+    if(todoBuy.length){
+      th+='<div class="gp">Noch zu besorgen</div>';
+      todoBuy.forEach(function(n){
+        var x=days[n];
+        th+='<div class="gift"><div class="gh"><div class="m"><b>Türchen '+n+': '+esc(x.t)+'</b>'+(x.p?'<small>'+eur(x.p)+'</small>':'')+'</div><label class="ck"><input type="checkbox" data-ad="b" data-n="'+n+'"> Besorgt</label></div></div>';
+      });
+    }
+    if(todoWrap.length){
+      th+='<div class="gp">Noch einzupacken</div>';
+      todoWrap.forEach(function(n){
+        var x=days[n];
+        th+='<div class="gift"><div class="gh"><div class="m"><b>Türchen '+n+': '+esc(x.t)+'</b></div><label class="ck"><input type="checkbox" data-ad="w" data-n="'+n+'"> Eingepackt</label></div></div>';
+      });
+    }
+    if(!th)th='<div class="empty">'+(plan?"Alles besorgt und eingepackt.":"Noch nichts geplant.")+'</div>';
+    $("advTodo").innerHTML=th;
+
+    $("ideaList").innerHTML=ideas.length?ideas.map(function(x){
+      return '<div class="tx"><div class="m"><b>'+esc(x.t)+'</b></div><button class="btn ghost small" data-idea-door="'+x.id+'">Türchen</button><button class="x" data-idea-del="'+x.id+'" aria-label="Löschen">×</button></div>';
+    }).join(""):'<div class="empty">Noch keine Ideen gesammelt.</div>';
+  }
+  var _rx2=renderX;
+  renderX=function(){_rx2();renderAdv();};
+
+  $("advName").onchange=function(){advW().name=$("advName").value.trim();save();renderAdv();};
+  $("doors").addEventListener("click",function(ev){
+    var t=ev.target.closest("[data-door]");if(!t)return;
+    var n=+t.getAttribute("data-door"),e=(adv().days||{})[n]||{t:"",p:0,b:false,w:false};
+    editDoor=n;
+    $("aTitle").textContent="Türchen "+n+" für "+advName();
+    $("aText").value=e.t||"";$("aPrice").value=e.p||"";
+    $("aBought").checked=!!e.b;$("aWrapped").checked=!!e.w;
+    $("asheet").classList.add("show");
+  });
+  $("aWrapped").onchange=function(){if($("aWrapped").checked)$("aBought").checked=true;};
+  $("aBought").onchange=function(){if(!$("aBought").checked)$("aWrapped").checked=false;};
+  $("aCancel").onclick=function(){$("asheet").classList.remove("show");};
+  $("asheet").onclick=function(ev){if(ev.target===$("asheet"))$("asheet").classList.remove("show");};
+  $("aSave").onclick=function(){
+    var a=advW(),t=$("aText").value.trim();
+    if(!t){delete a.days[editDoor];}
+    else{
+      var p=parseFloat(String($("aPrice").value).replace(",","."));
+      var w=$("aWrapped").checked,b=$("aBought").checked||w;
+      a.days[editDoor]={t:t,p:isNaN(p)?0:p,b:b,w:w};
+    }
+    save();$("asheet").classList.remove("show");renderAdv();
+  };
+  $("aClear").onclick=function(){
+    var a=advW();delete a.days[editDoor];
+    save();$("asheet").classList.remove("show");renderAdv();
+  };
+  $("advTodo").addEventListener("change",function(ev){
+    var t=ev.target,k=t.getAttribute("data-ad");if(!k)return;
+    var a=advW(),e=a.days[t.getAttribute("data-n")];if(!e)return;
+    if(k==="b")e.b=t.checked;
+    if(k==="w"){e.w=t.checked;if(t.checked)e.b=true;}
+    save();renderAdv();
+  });
+  $("ideaAdd").onclick=function(){
+    var t=$("ideaIn").value.trim();
+    if(!t){$("ideaIn").focus();return;}
+    advW().ideas.push({id:newId(),t:t});
+    $("ideaIn").value="";save();renderAdv();
+  };
+  $("ideaList").addEventListener("click",function(ev){
+    var a,t=ev.target.closest("[data-idea-del]");
+    if(t){
+      a=advW();var id=t.getAttribute("data-idea-del");
+      a.ideas=a.ideas.filter(function(x){return x.id!==id;});
+      save();renderAdv();return;
+    }
+    t=ev.target.closest("[data-idea-door]");if(!t)return;
+    a=advW();
+    var idea=a.ideas.filter(function(x){return x.id===t.getAttribute("data-idea-door");})[0];if(!idea)return;
+    var r=prompt("Für welches Türchen (1 bis "+DOORS+")?");if(r===null)return;
+    var n=parseInt(r,10);
+    if(!(n>=1&&n<=DOORS)){alert("Bitte eine Zahl von 1 bis "+DOORS+" eingeben.");return;}
+    var cur=a.days[n];
+    if(cur&&cur.t&&!confirm("Türchen "+n+" ist schon belegt mit: "+cur.t+". Überschreiben?"))return;
+    a.days[n]={t:idea.t,p:0,b:false,w:false};
+    a.ideas=a.ideas.filter(function(x){return x.id!==idea.id;});
+    save();renderAdv();
+  });
+
+  /* Geschenkideen */
+  var giEdit=null;
+  function gIdeas(){return X.giftIdeas||[];}
+  function gIdeasW(){X.giftIdeas=X.giftIdeas||[];return X.giftIdeas;}
+  function renderGiftIdeas(){
+    var key=function(x){return gs==="from"?(x.from||"Von uns"):(x.person||"Ohne Name");};
+    var l=gIdeas().slice().sort(function(a,b){
+      var ka=key(a).toLowerCase(),kb=key(b).toLowerCase();
+      if(ka!==kb)return ka<kb?-1:1;
+      var ta=(gs==="from"?a.person||"":a.t||"").toLowerCase(),tb=(gs==="from"?b.person||"":b.t||"").toLowerCase();
+      return ta<tb?-1:ta>tb?1:0;
+    }),h="",last=null;
+    l.forEach(function(x){
+      var k=key(x);
+      if(k!==last){h+='<div class="gp">'+(gs==="from"&&k!=="Von uns"?"Von ":"")+esc(k)+'</div>';last=k;}
+      var parts=[];
+      if(gs==="from")parts.push("Für "+(x.person||"Ohne Name"));
+      else if(x.from)parts.push("Von "+x.from);
+      if(x.price)parts.push(eur(x.price));
+      h+='<div class="tx"><div class="m"><b>'+esc(x.t)+'</b>'+(parts.length?'<small>'+esc(parts.join(" · "))+'</small>':'')+'</div><button class="btn ghost small" data-gi-ed="'+x.id+'">Ändern</button><button class="btn ghost small" data-gi-to="'+x.id+'">Zur Liste</button><button class="x" data-gi-del="'+x.id+'" aria-label="Löschen">×</button></div>';
+    });
+    $("gIdeaList").innerHTML=h||'<div class="empty">Noch keine Ideen gesammelt.</div>';
+  }
+  function giReset(){
+    giEdit=null;$("giPerson").value="";$("giFrom").value="";$("giText").value="";$("giPrice").value="";
+    $("giAdd").textContent="Idee hinzufügen";$("giCancel").classList.add("hide");
+  }
+  $("giAdd").onclick=function(){
+    var t=$("giText").value.trim();
+    if(!t){$("giText").focus();return;}
+    var p=parseFloat(String($("giPrice").value).replace(",","."));
+    var person=$("giPerson").value.trim(),from=$("giFrom").value.trim();
+    if(giEdit){
+      var it=gIdeasW().filter(function(x){return x.id===giEdit;})[0];
+      if(it){it.person=person;it.from=from;it.t=t;it.price=isNaN(p)?0:p;}
+      giReset();
+    }else{
+      gIdeasW().push({id:newId(),person:person,from:from,t:t,price:isNaN(p)?0:p});
+      $("giText").value="";$("giPrice").value="";
+    }
+    save();renderGifts();
+  };
+  $("giCancel").onclick=giReset;
+  $("gIdeaList").addEventListener("click",function(ev){
+    var ed=ev.target.closest("[data-gi-ed]"),to=ev.target.closest("[data-gi-to]"),del=ev.target.closest("[data-gi-del]"),id,it;
+    if(ed){
+      id=ed.getAttribute("data-gi-ed");it=gIdeasW().filter(function(x){return x.id===id;})[0];
+      if(!it)return;
+      giEdit=id;$("giPerson").value=it.person||"";$("giFrom").value=it.from||"";$("giText").value=it.t||"";$("giPrice").value=it.price||"";
+      $("giAdd").textContent="Änderung speichern";$("giCancel").classList.remove("hide");
+      $("giText").scrollIntoView({behavior:"smooth",block:"center"});
+    }else if(to){
+      id=to.getAttribute("data-gi-to");it=gIdeasW().filter(function(x){return x.id===id;})[0];
+      if(!it)return;
+      gifts().push({id:newId(),person:it.person||"",from:it.from||"",name:it.t,price:it.price||0,bought:false,wrapped:false});
+      X.giftIdeas=gIdeasW().filter(function(x){return x.id!==id;});
+      if(giEdit===id)giReset();
+      save();renderGifts();
+    }else if(del){
+      id=del.getAttribute("data-gi-del");
+      X.giftIdeas=gIdeasW().filter(function(x){return x.id!==id;});
+      if(giEdit===id)giReset();
+      save();renderGifts();
+    }
+  });
+
+  /* Packliste Ferienwohnung */
+  var PACK_SUG=["Bettwäsche","Handtücher","Geschirrtücher","Spülmittel","Kaffee und Filter","Ladekabel","Gesellschaftsspiele","Hausschuhe"];
+  function packs(){return X.pack||[];}
+  function packsW(){X.pack=X.pack||[];return X.pack;}
+  function renderPack(){
+    var l=packs().slice(),n=l.length,done=l.filter(function(x){return x.done;}).length;
+    $("packBar").style.width=(n?Math.round(done/n*100):0)+"%";
+    $("packSum").textContent=n?(done+" von "+n+" eingepackt"):"Noch nichts auf der Liste.";
+    l.sort(function(a,b){return (a.done?1:0)-(b.done?1:0);});
+    $("packList").innerHTML=l.length?l.map(function(x){
+      return '<div class="tx pk'+(x.done?" done":"")+'"><div class="m"><label class="ck"><input type="checkbox" data-pk="'+x.id+'"'+(x.done?" checked":"")+'><span>'+esc(x.t)+'</span></label></div><button class="x" data-pkdel="'+x.id+'" aria-label="Löschen">×</button></div>';
+    }).join(""):'<div class="empty">Lege an, was du für die Ferienwohnung mitnehmen musst.</div>';
+    $("packActs").innerHTML=done?'<button class="btn ghost small" id="packReset">Haken zurücksetzen</button>':"";
+    var have=l.map(function(x){return x.t.toLowerCase();});
+    $("packSug").innerHTML=PACK_SUG.filter(function(t){return have.indexOf(t.toLowerCase())<0;}).map(function(t){
+      return '<button type="button" class="sug" data-sug="'+esc(t)+'">'+esc(t)+'</button>';
+    }).join("");
+  }
+  var _rx3=renderX;
+  renderX=function(){_rx3();renderPack();};
+  function packAdd(t){
+    t=String(t||"").trim();if(!t)return false;
+    packsW().push({id:newId(),t:t,done:false});
+    save();renderPack();return true;
+  }
+  $("packAdd").onclick=function(){if(packAdd($("packIn").value))$("packIn").value="";else $("packIn").focus();};
+  $("packIn").addEventListener("keydown",function(ev){if(ev.key==="Enter"){ev.preventDefault();$("packAdd").click();}});
+  $("packList").addEventListener("change",function(ev){
+    var t=ev.target,id=t.getAttribute("data-pk");if(!id)return;
+    var it=packsW().filter(function(x){return x.id===id;})[0];if(!it)return;
+    it.done=t.checked;save();renderPack();
+  });
+  $("packList").addEventListener("click",function(ev){
+    var t=ev.target.closest("[data-pkdel]");if(!t)return;
+    var id=t.getAttribute("data-pkdel");
+    X.pack=packsW().filter(function(x){return x.id!==id;});
+    save();renderPack();
+  });
+  $("packSug").addEventListener("click",function(ev){
+    var t=ev.target.closest("[data-sug]");if(!t)return;
+    packAdd(t.getAttribute("data-sug"));
+  });
+  $("packActs").addEventListener("click",function(ev){
+    if(!ev.target.closest("#packReset"))return;
+    packsW().forEach(function(x){x.done=false;});
+    save();renderPack();
+  });
+  function packLines(L){
+    var open=packs().filter(function(x){return !x.done;});
+    if(!packs().length)return;
+    L.push("");
+    if(!open.length){L.push("Packliste Ferienwohnung: alles eingepackt");return;}
+    L.push("Packliste Ferienwohnung, noch einzupacken:");
+    open.forEach(function(x){L.push(x.t);});
+  }
+
+  /* Live teilen: Firebase (Netlify oder GitHub) oder claude.ai Datenbank */
+  var sharedDoc=null,lastX="",pushing=false,pend=false;
+  var FB=window.TAGWERK_FIREBASE||{},ROOMKEY="tagwerk_room";
+  var hasFB=!!(FB.apiKey&&FB.projectId);
+  function canon(o){
+    if(Array.isArray(o))return "["+o.map(canon).join(",")+"]";
+    if(o&&typeof o==="object")return "{"+Object.keys(o).sort().map(function(k){return JSON.stringify(k)+":"+canon(o[k]);}).join(",")+"}";
+    return JSON.stringify(o);
+  }
+  function syncMsg(t){$("syncNote").textContent=t;}
+  function fillXInputs(){$("yr").value=X.year;$("aptName").value=X.aptName;$("aptFrom").value=X.aptFrom;$("aptTo").value=X.aptTo;}
+  function applyRemote(d){
+    var c=JSON.parse(JSON.stringify(d));
+    c.days=c.days||{};
+    if(!c.advent&&X.advent)c.advent=X.advent;
+    if(!c.pack&&X.pack)c.pack=X.pack;
+    if(!c.giftIdeas&&X.giftIdeas)c.giftIdeas=X.giftIdeas;
+    state.xmas=Object.assign({year:X.year,aptName:"",aptFrom:"",aptTo:"",days:{},gifts:[]},c);
+    X=state.xmas;
+    lastX=canon(X);
+    try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}
+    fillXInputs();renderX();
+    if(typeof autoBackupSoon==="function")autoBackupSoon();
+  }
+  function pushX(){
+    if(!sharedDoc)return;
+    var j=canon(X);
+    if(j===lastX)return;
+    if(pushing){pend=true;return;}
+    pushing=true;lastX=j;
+    sharedDoc.set(JSON.parse(JSON.stringify(X))).catch(function(){syncMsg("Das Speichern im gemeinsamen Kalender hat nicht geklappt.");}).then(function(){pushing=false;if(pend){pend=false;pushX();}});
+  }
+  function isEmptyX(x){var av=x.advent||{};return !x.aptFrom&&!x.aptTo&&!Object.keys(x.days||{}).length&&!(x.gifts||[]).length&&!Object.keys(av.days||{}).length&&!(av.ideas||[]).length&&!(x.pack||[]).length&&!(x.giftIdeas||[]).length;}
+  async function connect(getRef,okMsg){
+    var ref=await getRef();
+    var snap=await ref.get();
+    var remote=snap.exists?snap.data():null;
+    if(remote&&!(isEmptyX(remote)&&!isEmptyX(X)))applyRemote(remote);
+    else{await ref.set(JSON.parse(JSON.stringify(X)));lastX=canon(X);}
+    sharedDoc=ref;
+    syncMsg(okMsg);shLabel();
+    ref.onSnapshot(function(s){
+      if(!s.exists)return;
+      var d=s.data();
+      if(canon(d)!==lastX)applyRemote(d);
+    },function(){});
+  }
+  function startFB(){
+    var code=FB.room||"gemeinsam";
+    shCode=code;shLabel();
+    syncMsg("Verbinde mit Firebase …");
+    connect(async function(){
+      var app=await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js");
+      var fs=await import("https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js");
+      var cfg=Object.assign({},FB);delete cfg.collection;delete cfg.room;
+      var a=app.initializeApp(cfg),db=fs.getFirestore(a),dr=fs.doc(db,FB.collection||"rooms",code);
+      var wrap=function(s){return {exists:s.exists(),data:function(){return s.data();}};};
+      return {
+        get:function(){return fs.getDoc(dr).then(wrap);},
+        set:function(d){return fs.setDoc(dr,d);},
+        onSnapshot:function(next,err){return fs.onSnapshot(dr,function(s){next(wrap(s));},err);}
+      };
+    },"Live verbunden. Änderungen erscheinen bei Julia und dir sofort.").catch(function(){
+      shCode="";
+      syncMsg("Die Verbindung zu Firebase hat nicht geklappt. Bitte Einstellungen und Regeln prüfen.");
+      $("shArea").classList.remove("hide");shLabel();
+    });
+  }
+
+  (async function(){
+    try{
+      if(hasFB){startFB();return;}
+      if(!window.claude||!claude.use)return;
+      var db=await claude.use("db");
+      if(!db)return;
+      await connect(async function(){return db.doc("shared/xmas");},"Live geteilt: Alle mit Zugriff auf diese Seite sehen und bearbeiten denselben Kalender.");
+    }catch(e){}
+  })();
+
+  /* Automatische Sicherungen: 14 Tage, ein Stand pro Tag, auf diesem Gerät */
+  var AB_SLOTS=14,AB_PREFIX="heimspiel_bk_slot_",AB_VORHER="heimspiel_bk_vorher",abTimer=null;
+  function abMetrics(x){
+    var av=x.advent||{};
+    var booked=Object.keys(x.days||{}).filter(function(k){return x.days[k]&&x.days[k].s!=="free";}).length;
+    var gifts=(x.gifts||[]).length,doors=Object.keys(av.days||{}).length,ideas=(av.ideas||[]).length;
+    var apt=(x.aptFrom&&x.aptTo)?1:0;
+    var pack=(x.pack||[]).length,gi=(x.giftIdeas||[]).length;
+    return {apt:apt,booked:booked,gifts:gifts,doors:doors,ideas:ideas,pack:pack,gi:gi,score:apt+booked+gifts+doors+ideas+pack+gi};
+  }
+  function abSlotKey(dateIso){
+    var p=dateIso.split("-"),n=Math.floor(Date.UTC(+p[0],+p[1]-1,+p[2])/86400000);
+    return AB_PREFIX+(((n%AB_SLOTS)+AB_SLOTS)%AB_SLOTS);
+  }
+  function abEntry(x,dateIso){
+    var m=abMetrics(x);
+    return {datum:dateIso,apt:m.apt,booked:m.booked,gifts:m.gifts,doors:m.doors,ideas:m.ideas,pack:m.pack,gi:m.gi,score:m.score,value:JSON.stringify(x)};
+  }
+  function autoBackup(){
+    try{
+      var m=abMetrics(X);
+      if(!m.score)return;
+      var today=iso(new Date()),key=abSlotKey(today),old=null;
+      try{old=JSON.parse(localStorage.getItem(key)||"null");}catch(e){}
+      /* Der Stand von heute wird nie durch einen deutlich kleineren ersetzt */
+      if(old&&old.datum===today&&old.score>=4&&m.score<old.score*0.5)return;
+      localStorage.setItem(key,JSON.stringify(abEntry(X,today)));
+    }catch(e){}
+  }
+  function autoBackupSoon(){
+    clearTimeout(abTimer);
+    abTimer=setTimeout(function(){autoBackup();if(!$("bkArea").classList.contains("hide"))renderAuto();},1500);
+  }
+  function abPl(n,one,many){return n+" "+(n===1?one:many);}
+  function abText(e){
+    var t=[];
+    if(e.booked)t.push(abPl(e.booked,"verplanter Tag","verplante Tage"));
+    if(e.gifts)t.push(abPl(e.gifts,"Geschenk","Geschenke"));
+    if(e.doors)t.push(abPl(e.doors,"Türchen","Türchen"));
+    if(e.pack)t.push(abPl(e.pack,"Packpunkt","Packpunkte"));
+    if(e.gi)t.push(abPl(e.gi,"Geschenkidee","Geschenkideen"));
+    if(e.apt&&!t.length)t.push("Ferienwohnung eingetragen");
+    return t.length?t.join(", "):"Keine Einträge";
+  }
+  function abRead(){
+    var list=[],i,r;
+    for(i=0;i<AB_SLOTS;i++){
+      try{r=JSON.parse(localStorage.getItem(AB_PREFIX+i)||"null");}catch(e){r=null;}
+      if(r&&r.datum&&r.value)list.push({key:AB_PREFIX+i,e:r,vorher:false});
+    }
+    list.sort(function(a,b){return a.e.datum<b.e.datum?1:-1;});
+    try{r=JSON.parse(localStorage.getItem(AB_VORHER)||"null");}catch(e){r=null;}
+    if(r&&r.datum&&r.value)list.push({key:AB_VORHER,e:r,vorher:true});
+    return list;
+  }
+  function renderAuto(){
+    var list=abRead(),el=$("autoList");
+    if(!list.length){el.innerHTML='<div class="empty">Noch keine Sicherung vorhanden. Sie entsteht automatisch, sobald etwas eingetragen ist.</div>';return;}
+    el.innerHTML=list.map(function(it,i){
+      var title=it.vorher?"Stand vor der letzten Wiederherstellung":longDate(it.e.datum)+parse(it.e.datum).getFullYear();
+      return '<div class="tx"><div class="m"><b>'+esc(title)+'</b><small>'+(it.vorher?"Gesichert am "+deDate(it.e.datum)+": ":"")+esc(abText(it.e))+'</small></div><button class="btn ghost small" data-ab="'+i+'">Wiederherstellen</button></div>';
+    }).join("");
+    el.querySelectorAll("[data-ab]").forEach(function(b){
+      b.onclick=function(){restoreAuto(list[+b.getAttribute("data-ab")]);};
+    });
+  }
+  function restoreAuto(it){
+    if(!it)return;
+    var name=it.vorher?"dem Stand vor der letzten Wiederherstellung":"der Sicherung vom "+deDate(it.e.datum);
+    if(!confirm("Der aktuelle Stand wird durch "+name+" ersetzt.\n\nDer aktuelle Stand wird vorher ebenfalls gesichert. Fortfahren?"))return;
+    var data;
+    try{data=JSON.parse(it.e.value);}catch(e){alert("Diese Sicherung konnte nicht gelesen werden.");return;}
+    try{localStorage.setItem(AB_VORHER,JSON.stringify(abEntry(X,iso(new Date()))));}
+    catch(e){alert("Der aktuelle Stand konnte nicht gesichert werden. Es wurde nichts geändert.");return;}
+    data.days=data.days||{};
+    state.xmas=Object.assign({year:X.year,aptName:"",aptFrom:"",aptTo:"",days:{},gifts:[]},data);
+    X=state.xmas;
+    fillXInputs();
+    save();renderX();renderAuto();
+    alert("Die Sicherung wurde wiederhergestellt.");
+  }
+
+  /* Version: bei jeder Änderung hier hochzählen */
+  var APP_VERSION="2.8.1",APP_DATE="2026-10-27";
+  $("verInfo").textContent="Heimspiel Version "+APP_VERSION+" vom "+deDate(APP_DATE);
+
+  /* Datensicherung als Datei */
+  var BK="tagwerk_lastbackup";
+  var shCode="";
+  function shLabel(){
+    var open=!$("shArea").classList.contains("hide");
+    var st=sharedDoc?" (verbunden)":(shCode?" (verbinde)":(hasFB?" (nicht verbunden)":""));
+    $("shToggle").textContent=open?"✕ Teilen mit Julia ausblenden":"👥 Teilen mit Julia ▾"+st;
+    $("shToggle").setAttribute("aria-expanded",String(open));
+  }
+  $("shToggle").onclick=function(){$("shArea").classList.toggle("hide");shLabel();};
+  var bkOverdue=false;
+  function bkLabel(){
+    var open=!$("bkArea").classList.contains("hide");
+    $("bkToggle").textContent=open?"✕ Datensicherung ausblenden":"🛟 Datensicherung ▾"+(bkOverdue?" (fällig)":"");
+    $("bkToggle").setAttribute("aria-expanded",String(open));
+  }
+  $("bkToggle").onclick=function(){$("bkArea").classList.toggle("hide");bkLabel();if(!$("bkArea").classList.contains("hide"))renderAuto();};
+  function bkInfo(){
+    var d="";try{d=localStorage.getItem(BK)||"";}catch(e){}
+    var el=$("bkInfo");
+    if(!d){el.textContent="Noch keine Sicherung gemacht.";bkOverdue=false;bkLabel();return;}
+    var days=Math.floor((Date.now()-parse(d).getTime())/86400000);
+    bkOverdue=days>30;
+    el.textContent="Letzte Sicherung: "+deDate(d)+(bkOverdue?". Das ist schon länger her, bitte wieder sichern.":".");
+    bkLabel();
+  }
+  function bkMark(){try{localStorage.setItem(BK,iso(new Date()));}catch(e){}bkInfo();}
+  function bkPayload(){return JSON.stringify({app:"heimspiel",version:1,appVersion:APP_VERSION,saved:iso(new Date()),data:state},null,1);}
+  function bkName(){return "heimspiel_sicherung_"+iso(new Date()).replace(/-/g,"_")+".json";}
+  $("bkFile").onclick=function(){
+    var blob=new Blob([bkPayload()],{type:"application/json"});
+    var a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);a.download=bkName();
+    document.body.appendChild(a);a.click();
+    setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},800);
+    bkMark();
+  };
+  $("bkShare").onclick=function(){
+    var file=new File([bkPayload()],bkName(),{type:"application/json"});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){
+      navigator.share({files:[file],title:"Heimspiel Sicherung"}).then(bkMark).catch(function(){});
+    }else{
+      alert("Auf diesem Gerät lässt sich die Datei nicht direkt teilen. Nutze bitte „Als Datei speichern“.");
+    }
+  };
+  $("bkLoad").onclick=function(){$("bkInput").click();};
+  $("bkInput").onchange=function(){
+    var f=this.files[0],inp=this;
+    if(!f)return;
+    var rd=new FileReader();
+    rd.onload=function(){
+      try{
+        var o=JSON.parse(rd.result),d=o&&o.data?o.data:o;
+        if(!d||!d.xmas)throw 1;
+        if(!confirm("Die aktuellen Daten auf diesem Gerät werden durch die Sicherung ersetzt. Fortfahren?"))return;
+        localStorage.setItem(KEY,JSON.stringify(d));
+        location.reload();
+      }catch(e){alert("Die Datei konnte nicht gelesen werden.");}
+      inp.value="";
+    };
+    rd.readAsText(f);
+  };
+  bkInfo();
+
+  autoBackup();
+  renderX();
+  if(location.hash==="#advent")tab("adv");
+  if(location.hash==="#geschenke")tab("gift");
+})();
+</script>
+</body>
+</html>
