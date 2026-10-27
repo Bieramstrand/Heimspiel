@@ -148,6 +148,11 @@ details summary{cursor:pointer;margin:6px 0}
 .pk span{margin-left:2px}
 .pk.done span{text-decoration:line-through;color:var(--mute)}
 .sheet .box{max-height:88vh;overflow-y:auto}
+/* iPhone: Datums und Zeitfelder an die Spaltenbreite anpassen */
+input,select,textarea{min-width:0;max-width:100%}
+input[type=date],input[type=time],input[type=month]{-webkit-appearance:none;appearance:none;display:block;width:100%;min-height:47px;line-height:1.2;text-align:left}
+input[type=date]::-webkit-date-and-time-value,input[type=time]::-webkit-date-and-time-value,input[type=month]::-webkit-date-and-time-value{text-align:left;min-height:1.2em;margin:0}
+.row>*{min-width:130px;max-width:100%}
 </style>
 </head>
 <body>
@@ -1154,7 +1159,7 @@ window.TAGWERK_FIREBASE={
   }
 
   /* Version: bei jeder Änderung hier hochzählen */
-  var APP_VERSION="2.8.1",APP_DATE="2026-10-27";
+  var APP_VERSION="2.8.2",APP_DATE="2026-10-27";
   $("verInfo").textContent="Heimspiel Version "+APP_VERSION+" vom "+deDate(APP_DATE);
 
   /* Datensicherung als Datei */
