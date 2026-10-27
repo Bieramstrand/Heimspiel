@@ -153,6 +153,10 @@ input,select,textarea{min-width:0;max-width:100%}
 input[type=date],input[type=time],input[type=month]{-webkit-appearance:none;appearance:none;display:block;width:100%;min-height:47px;line-height:1.2;text-align:left}
 input[type=date]::-webkit-date-and-time-value,input[type=time]::-webkit-date-and-time-value,input[type=month]::-webkit-date-and-time-value{text-align:left;min-height:1.2em;margin:0}
 .row>*{min-width:130px;max-width:100%}
+:root{--eat:#dde8fb;--eatink:#1f3f80}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--eat:#1f2a47;--eatink:#a9bffa}}
+:root[data-theme="dark"]{--eat:#1f2a47;--eatink:#a9bffa}
+.day.eat{background:var(--eat);color:var(--eatink)}
 </style>
 </head>
 <body>
@@ -194,6 +198,7 @@ input[type=date]::-webkit-date-and-time-value,input[type=time]::-webkit-date-and
       <div class="legend">
         <span><i style="background:var(--free)"></i>Frei</span>
         <span><i style="background:var(--visit)"></i>Besuch bei Familie</span>
+        <span><i style="background:var(--eat)"></i>Essen gehen</span>
         <span><i style="background:var(--busy)"></i>Anderweitig belegt</span>
         <span><i style="border:2px solid var(--accent);background:transparent"></i>In der Wohnung</span>
       </div>
@@ -351,6 +356,7 @@ input[type=date]::-webkit-date-and-time-value,input[type=time]::-webkit-date-and
     <label for="dState">Art</label>
     <select id="dState">
       <option value="visit">Besuch bei Familie</option>
+      <option value="eat">Essen gehen</option>
       <option value="busy">Anderweitig belegt</option>
       <option value="free">Notiz, Tag bleibt frei</option>
     </select>
@@ -489,7 +495,7 @@ window.TAGWERK_FIREBASE={
       (bookedArr.length?bookedArr.map(function(s){
         var its=sortItems(itemsOf(X.days[s])).filter(function(x){return x.st!=="free";});
         return '<div class="tx"><div class="m"><b>'+longDate(s)+'</b>'+its.map(function(x){
-          return '<small style="display:block">'+(x.time?esc(x.time)+' Uhr · ':'')+(x.st==="visit"?"Besuch":"Belegt")+(x.t?" · "+esc(x.t):"")+'</small>';
+          return '<small style="display:block">'+(x.time?esc(x.time)+' Uhr · ':'')+itemLabel(x.st)+(x.t?" · "+esc(x.t):"")+'</small>';
         }).join("")+'</div></div>';
       }).join(""):'<div class="empty">Noch nichts verplant.</div>');
   }
@@ -506,10 +512,11 @@ window.TAGWERK_FIREBASE={
   function commitDay(s,items){
     items=sortItems(items);
     if(!items.length){delete X.days[s];return;}
-    var st=items.some(function(i){return i.st==="visit";})?"visit":(items.some(function(i){return i.st==="busy";})?"busy":"free");
+    var has=function(k){return items.some(function(i){return i.st===k;});};
+    var st=has("visit")?"visit":(has("eat")?"eat":(has("busy")?"busy":"free"));
     X.days[s]={s:st,t:items.map(function(i){return i.t;}).filter(Boolean).join(", "),items:items};
   }
-  function itemLabel(st){return st==="visit"?"Besuch":(st==="busy"?"Belegt":"Notiz");}
+  function itemLabel(st){return st==="visit"?"Besuch":(st==="eat"?"Essen gehen":(st==="busy"?"Belegt":"Notiz"));}
   var editItem=null;
   function setForm(it){
     editItem=it?it.id:null;
@@ -582,7 +589,7 @@ window.TAGWERK_FIREBASE={
       var s=iso(d),e=X.days[s];
       var lab=WD[d.getDay()]+" "+pad(d.getDate())+"."+pad(d.getMonth()+1)+".";
       if(!e||e.s==="free")free.push(lab);
-      else booked.push(lab+": "+sortItems(itemsOf(e)).filter(function(i){return i.st!=="free";}).map(function(i){return (i.time?i.time+" Uhr ":"")+(i.st==="visit"?"Besuch":"Belegt")+(i.t?", "+i.t:"");}).join("; "));
+      else booked.push(lab+": "+sortItems(itemsOf(e)).filter(function(i){return i.st!=="free";}).map(function(i){return (i.time?i.time+" Uhr ":"")+itemLabel(i.st)+(i.t?", "+i.t:"");}).join("; "));
       d.setDate(d.getDate()+1);
     }
     L.push("");
@@ -1159,7 +1166,7 @@ window.TAGWERK_FIREBASE={
   }
 
   /* Version: bei jeder Änderung hier hochzählen */
-  var APP_VERSION="2.8.2",APP_DATE="2026-10-27";
+  var APP_VERSION="2.9.0",APP_DATE="2026-10-27";
   $("verInfo").textContent="Heimspiel Version "+APP_VERSION+" vom "+deDate(APP_DATE);
 
   /* Datensicherung als Datei */
