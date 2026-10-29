@@ -157,6 +157,7 @@ input[type=date]::-webkit-date-and-time-value,input[type=time]::-webkit-date-and
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--eat:#1f2a47;--eatink:#a9bffa}}
 :root[data-theme="dark"]{--eat:#1f2a47;--eatink:#a9bffa}
 .day.eat{background:var(--eat);color:var(--eatink)}
+.sug.on{background:var(--accent);color:#fff;border-color:transparent}
 </style>
 </head>
 <body>
@@ -263,7 +264,16 @@ input[type=date]::-webkit-date-and-time-value,input[type=time]::-webkit-date-and
     <div class="card">
       <h2>Geschenkideen</h2>
       <div id="gIdeaList"></div>
-      <div class="row" style="align-items:flex-end;margin-top:12px">
+      <div class="mute" style="margin-top:16px">Name antippen, dann die Idee eintragen</div>
+      <div class="chips" id="pplChips"></div>
+      <div class="acts"><button type="button" class="btn ghost small" id="pplEdit">Namen bearbeiten</button></div>
+      <div class="hide" id="pplEditBox" style="margin-top:10px">
+        <label for="pplIn">Neuer Name</label>
+        <input id="pplIn" type="text" autocomplete="off" placeholder="z. B. Oma">
+        <div style="margin-top:10px"><button type="button" class="btn" id="pplAdd" style="width:100%">Name zur Liste hinzufügen</button></div>
+        <div class="note">Tippe einen Namen an, um ihn aus der Liste zu entfernen. Bereits eingetragene Ideen bleiben erhalten.</div>
+      </div>
+      <div class="row" style="align-items:flex-end;margin-top:14px">
         <div><label for="giPerson">Für wen</label><input id="giPerson" type="text" list="gPersonList" autocomplete="off" placeholder="z. B. Jonas"></div>
         <div><label for="giFrom">Von wem</label><input id="giFrom" type="text" list="gFromList" autocomplete="off" placeholder="z. B. Oma"></div>
         <div style="flex:2"><label for="giText">Idee</label><input id="giText" type="text" placeholder="z. B. Kopfhörer"></div>
@@ -643,7 +653,7 @@ window.TAGWERK_FIREBASE={
     var sum=g.reduce(function(s,x){return s+(x.price||0);},0);
     $("giftBar").style.width=(n?Math.round(wrapped/n*100):0)+"%";
     $("giftSum").textContent=n?(bought+" von "+n+" gekauft, "+wrapped+" eingepackt"+(sum?". Geschätzte Kosten: "+eur(sum):"")):"Noch keine Geschenke auf der Liste.";
-    $("gPersonList").innerHTML=uniq(g.map(function(x){return x.person;}).concat([advName()],(X.giftIdeas||[]).map(function(x){return x.person;}))).map(function(v){return '<option value="'+esc(v)+'">';}).join("");
+    $("gPersonList").innerHTML=uniq(g.map(function(x){return x.person;}).concat([advName()],people(),(X.giftIdeas||[]).map(function(x){return x.person;}))).map(function(v){return '<option value="'+esc(v)+'">';}).join("");
     $("gFromList").innerHTML=uniq(g.map(function(x){return x.from;}).concat((X.giftIdeas||[]).map(function(x){return x.from;}))).map(function(v){return '<option value="'+esc(v)+'">';}).join("");
     var key=function(x){return gs==="from"?(x.from||"Von uns"):(x.person||"Ohne Name");};
     var list=g.filter(function(x){
@@ -904,10 +914,12 @@ window.TAGWERK_FIREBASE={
       h+='<div class="tx"><div class="m"><b>'+esc(x.t)+'</b>'+(parts.length?'<small>'+esc(parts.join(" · "))+'</small>':'')+'</div><button class="btn ghost small" data-gi-ed="'+x.id+'">Ändern</button><button class="btn ghost small" data-gi-to="'+x.id+'">Zur Liste</button><button class="x" data-gi-del="'+x.id+'" aria-label="Löschen">×</button></div>';
     });
     $("gIdeaList").innerHTML=h||'<div class="empty">Noch keine Ideen gesammelt.</div>';
+    renderPeople();
   }
   function giReset(){
     giEdit=null;$("giPerson").value="";$("giFrom").value="";$("giText").value="";$("giPrice").value="";
     $("giAdd").textContent="Idee hinzufügen";$("giCancel").classList.add("hide");
+    renderPeople();
   }
   $("giAdd").onclick=function(){
     var t=$("giText").value.trim();
@@ -947,6 +959,44 @@ window.TAGWERK_FIREBASE={
       save();renderGifts();
     }
   });
+
+  /* Namensliste für Geschenkideen */
+  var PEOPLE_DEFAULT=["Heidrun","Bernd","Immo","Johanna","Mateo","Heidi","Martina","Arthur","Claudia","Daisy","Jörg","Biggi","Heike","Carsten","Rieka","Fiene","Hedi","Mara","Kolja","Ute","Arno","Felix","Stephie","Emmi","Ralf","Eva","Ben","Lil","Timo","Janka","Paul","Nora","Liesa"];
+  var pplEdit=false;
+  function people(){return Array.isArray(X.people)?X.people:PEOPLE_DEFAULT;}
+  function peopleW(){if(!Array.isArray(X.people))X.people=PEOPLE_DEFAULT.slice();return X.people;}
+  function renderPeople(){
+    var cnt={},cur=$("giPerson").value.trim().toLowerCase();
+    gIdeas().forEach(function(x){var k=(x.person||"").toLowerCase();cnt[k]=(cnt[k]||0)+1;});
+    $("pplChips").innerHTML=people().map(function(n,i){
+      var c=cnt[n.toLowerCase()]||0;
+      return '<button type="button" class="sug'+(cur===n.toLowerCase()?" on":"")+'" data-ppl="'+i+'">'+esc(n)+(c?" · "+c:"")+(pplEdit?" ×":"")+'</button>';
+    }).join("");
+    $("pplEditBox").classList.toggle("hide",!pplEdit);
+    $("pplEdit").textContent=pplEdit?"Fertig":"Namen bearbeiten";
+  }
+  $("pplChips").addEventListener("click",function(ev){
+    var t=ev.target.closest("[data-ppl]");if(!t)return;
+    var i=+t.getAttribute("data-ppl");
+    if(pplEdit){
+      peopleW().splice(i,1);save();renderPeople();renderGifts();
+    }else{
+      $("giPerson").value=people()[i];
+      renderPeople();
+      $("giText").focus();
+      try{$("giText").scrollIntoView({behavior:"smooth",block:"center"});}catch(e){}
+    }
+  });
+  $("pplEdit").onclick=function(){pplEdit=!pplEdit;renderPeople();};
+  $("pplAdd").onclick=function(){
+    var n=$("pplIn").value.trim();
+    if(!n){$("pplIn").focus();return;}
+    var exists=people().some(function(x){return x.toLowerCase()===n.toLowerCase();});
+    if(!exists)peopleW().push(n);
+    $("pplIn").value="";save();renderPeople();renderGifts();
+  };
+  $("pplIn").addEventListener("keydown",function(ev){if(ev.key==="Enter"){ev.preventDefault();$("pplAdd").click();}});
+  $("giPerson").addEventListener("input",renderPeople);
 
   /* Packliste Ferienwohnung */
   var PACK_SUG=["Bettwäsche","Handtücher","Geschirrtücher","Spülmittel","Kaffee und Filter","Ladekabel","Gesellschaftsspiele","Hausschuhe"];
@@ -1021,6 +1071,7 @@ window.TAGWERK_FIREBASE={
     if(!c.advent&&X.advent)c.advent=X.advent;
     if(!c.pack&&X.pack)c.pack=X.pack;
     if(!c.giftIdeas&&X.giftIdeas)c.giftIdeas=X.giftIdeas;
+    if(!c.people&&X.people)c.people=X.people;
     state.xmas=Object.assign({year:X.year,aptName:"",aptFrom:"",aptTo:"",days:{},gifts:[]},c);
     X=state.xmas;
     lastX=canon(X);
@@ -1166,7 +1217,7 @@ window.TAGWERK_FIREBASE={
   }
 
   /* Version: bei jeder Änderung hier hochzählen */
-  var APP_VERSION="2.9.0",APP_DATE="2026-10-27";
+  var APP_VERSION="2.10.0",APP_DATE="2026-10-27";
   $("verInfo").textContent="Heimspiel Version "+APP_VERSION+" vom "+deDate(APP_DATE);
 
   /* Datensicherung als Datei */
