@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Heimspiel</title>
 <meta name="theme-color" content="#2b3f8f">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -158,6 +158,7 @@ input[type=date]::-webkit-date-and-time-value,input[type=time]::-webkit-date-and
 :root[data-theme="dark"]{--eat:#1f2a47;--eatink:#a9bffa}
 .day.eat{background:var(--eat);color:var(--eatink)}
 .sug.on{background:var(--accent);color:#fff;border-color:transparent}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulation}
 </style>
 </head>
 <body>
@@ -237,15 +238,6 @@ input[type=date]::-webkit-date-and-time-value,input[type=time]::-webkit-date-and
       <h2>Geschenke</h2>
       <div class="bar"><i id="giftBar" style="width:0"></i></div>
       <div class="note" id="giftSum" style="margin:4px 0 10px"></div>
-      <div class="seg" id="giftFilter">
-        <button data-f="all" class="on">Alle</button>
-        <button data-f="buy">Zu kaufen</button>
-        <button data-f="wrap">Zu verpacken</button>
-      </div>
-      <div class="seg" id="giftSort">
-        <button data-s="to" class="on">Nach Empfänger</button>
-        <button data-s="from">Nach Schenker</button>
-      </div>
       <div id="giftList"></div>
       <div style="margin-top:14px;border-top:1px solid var(--line);padding-top:4px">
         <div class="row" style="align-items:flex-end">
@@ -684,20 +676,6 @@ window.TAGWERK_FIREBASE={
   }
   var _rx=renderX;
   renderX=function(){_rx();renderGifts();};
-  document.querySelectorAll("#giftFilter button").forEach(function(b){
-    b.onclick=function(){
-      gf=b.getAttribute("data-f");
-      document.querySelectorAll("#giftFilter button").forEach(function(x){x.classList.toggle("on",x===b);});
-      renderGifts();
-    };
-  });
-  document.querySelectorAll("#giftSort button").forEach(function(b){
-    b.onclick=function(){
-      gs=b.getAttribute("data-s");
-      document.querySelectorAll("#giftSort button").forEach(function(x){x.classList.toggle("on",x===b);});
-      renderGifts();
-    };
-  });
   function gForm(x){
     gEdit=x?x.id:null;
     $("gPerson").value=x?x.person:$("gPerson").value;
@@ -961,7 +939,7 @@ window.TAGWERK_FIREBASE={
   });
 
   /* Namensliste für Geschenkideen */
-  var PEOPLE_DEFAULT=["Heidrun","Bernd","Immo","Johanna","Mateo","Heidi","Martina","Arthur","Claudia","Daisy","Jörg","Biggi","Heike","Carsten","Rieka","Fiene","Hedi","Mara","Kolja","Ute","Arno","Felix","Stephie","Emmi","Ralf","Eva","Ben","Lil","Timo","Janka","Paul","Nora","Liesa"];
+  var PEOPLE_DEFAULT=["Jonas","Heidrun","Bernd","Immo","Johanna","Mateo","Heidi","Martina","Arthur","Claudia","Daisy","Jörg","Biggi","Heike","Carsten","Rieka","Fiene","Hedi","Mara","Kolja","Ute","Arno","Felix","Stephie","Emmi","Ralf","Eva","Ben","Lil","Timo","Janka","Paul","Nora","Liesa"];
   var pplEdit=false;
   function people(){return Array.isArray(X.people)?X.people:PEOPLE_DEFAULT;}
   function peopleW(){if(!Array.isArray(X.people))X.people=PEOPLE_DEFAULT.slice();return X.people;}
@@ -1217,7 +1195,7 @@ window.TAGWERK_FIREBASE={
   }
 
   /* Version: bei jeder Änderung hier hochzählen */
-  var APP_VERSION="2.10.0",APP_DATE="2026-10-27";
+  var APP_VERSION="2.11.0",APP_DATE="2026-10-27";
   $("verInfo").textContent="Heimspiel Version "+APP_VERSION+" vom "+deDate(APP_DATE);
 
   /* Datensicherung als Datei */
