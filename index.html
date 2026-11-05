@@ -159,6 +159,19 @@ input[type=date]::-webkit-date-and-time-value,input[type=time]::-webkit-date-and
 .day.eat{background:var(--eat);color:var(--eatink)}
 .sug.on{background:var(--accent);color:#fff;border-color:transparent}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulation}
+/* Größerer Kalender mit mehreren Terminen im Feld */
+.cal{gap:4px;margin:0 -8px}
+.day{aspect-ratio:auto;min-height:96px;padding:4px 2px 3px;border-radius:10px;justify-content:flex-start;align-items:stretch;gap:3px}
+.day .dh{display:flex;align-items:baseline;justify-content:center;gap:3px;line-height:1;padding:0;overflow:visible}
+.day .dh b{font-size:15px}
+.day .dh small{font-size:9px;opacity:.8}
+.day .evs{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;padding:0;font-size:9.5px;white-space:normal}
+.day .ev{display:block;font-style:normal;font-size:9.5px;line-height:1.3;padding:1px 3px;border-radius:4px;background:rgba(127,127,127,.22);border-left:3px solid var(--c,currentColor);text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.day .ev.k_visit{--c:var(--visitink)}
+.day .ev.k_eat{--c:var(--eatink)}
+.day .ev.k_busy{--c:var(--busyink)}
+.day .ev.k_free{--c:var(--freeink)}
+.day .ev.more{background:transparent;border-left-color:transparent;text-align:center;opacity:.8}
 </style>
 </head>
 <body>
@@ -187,11 +200,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulati
         <div><label for="aptFrom">Gemietet ab (Anreise)</label><input id="aptFrom" type="date"></div>
         <div><label for="aptTo">Gemietet bis (Abreise)</label><input id="aptTo" type="date"></div>
       </div>
-      <div class="row" style="margin-top:12px">
-        <div class="stat"><small>Tage in der Wohnung</small><b id="sAptDays">0</b></div>
-        <div class="stat"><small>Noch frei für Besuche</small><b id="sFree">0</b></div>
-        <div class="stat"><small>Schon verplant</small><b id="sBooked">0</b></div>
-      </div>
     </div>
 
 <div class="card">
@@ -205,11 +213,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulati
         <span><i style="border:2px solid var(--accent);background:transparent"></i>In der Wohnung</span>
       </div>
       <div class="note">Tippe auf einen Tag, um ihn zu bearbeiten. Pro Tag sind mehrere Termine möglich, zum Beispiel mittags die Oma und abends Freunde. Tage ohne Eintrag zählen innerhalb der Mietzeit als frei.</div>
-    </div>
-
-<div class="card">
-      <h2>Freie Tage in der Wohnung</h2>
-      <div id="freeList"></div>
     </div>
 
 <div class="card">
@@ -479,8 +482,10 @@ window.TAGWERK_FIREBASE={
     while(d<=end){
       var s=iso(d),st=dayState(s),apt=inApt(s);
       var cls="day "+(apt||!chosen?st:"")+(apt?" apt":"")+(chosen&&!apt?" out":"");
-      var its=itemsOf(X.days[s]),t=its.length>1?its.length+" Termine":(its[0]?its[0].t:"");
-      html+='<button class="'+cls+'" data-d="'+s+'"><b>'+d.getDate()+'</b><small>'+(d.getDate()===1||d.getTime()===start.getTime()?MON[d.getMonth()].slice(0,3):"")+'</small><span>'+esc(t)+'</span></button>';
+      var its=sortItems(itemsOf(X.days[s])),more=its.length>3?its.length-2:0,show=more?its.slice(0,2):its;
+      var evs=show.map(function(x){return '<em class="ev k_'+x.st+'">'+esc(x.t||itemLabel(x.st))+'</em>';}).join("")+(more?'<em class="ev more">+'+more+' weitere</em>':"");
+      var mon=(d.getDate()===1||d.getTime()===start.getTime())?MON[d.getMonth()].slice(0,3):"";
+      html+='<button class="'+cls+'" data-d="'+s+'"><span class="dh"><b>'+d.getDate()+'</b><small>'+mon+'</small></span><span class="evs">'+evs+'</span></button>';
       if(apt){
         aptDays++;
         if(st==="free"){freeDays++;freeArr.push(s);}
@@ -490,9 +495,6 @@ window.TAGWERK_FIREBASE={
     }
     $("cal").innerHTML=html;
     document.querySelectorAll("[data-d]").forEach(function(btn){btn.onclick=function(){openDay(btn.getAttribute("data-d"));};});
-    $("sAptDays").textContent=aptDays;$("sFree").textContent=freeDays;$("sBooked").textContent=bookedDays;
-    $("freeList").innerHTML=!chosen?'<div class="empty">Trage oben ein, von wann bis wann die Wohnung gemietet ist.</div>':
-      (freeArr.length?'<div class="free-list">'+freeArr.map(function(s){return '<span class="chip">'+longDate(s)+'</span>';}).join("")+'</div>':'<div class="empty">Alle Tage sind verplant.</div>');
     $("bookedList").innerHTML=!chosen?'<div class="empty">Noch keine Mietzeit eingetragen.</div>':
       (bookedArr.length?bookedArr.map(function(s){
         var its=sortItems(itemsOf(X.days[s])).filter(function(x){return x.st!=="free";});
@@ -1195,7 +1197,7 @@ window.TAGWERK_FIREBASE={
   }
 
   /* Version: bei jeder Änderung hier hochzählen */
-  var APP_VERSION="2.11.0",APP_DATE="2026-10-27";
+  var APP_VERSION="2.12.0",APP_DATE="2026-10-27";
   $("verInfo").textContent="Heimspiel Version "+APP_VERSION+" vom "+deDate(APP_DATE);
 
   /* Datensicherung als Datei */
