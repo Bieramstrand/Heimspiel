@@ -172,6 +172,17 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulati
 .day .ev.k_busy{--c:var(--busyink)}
 .day .ev.k_free{--c:var(--freeink)}
 .day .ev.more{background:transparent;border-left-color:transparent;text-align:center;opacity:.8}
+/* Navigation unten wie eine iPhone App */
+.tabs{position:fixed;left:0;right:0;bottom:0;top:auto;margin:0;display:flex;justify-content:center;gap:0;overflow:visible;
+  background:var(--card);border:0;border-top:1px solid var(--line);border-radius:0;
+  padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px));z-index:10}
+.tabs button{flex:1;max-width:130px;min-width:0;display:flex;flex-direction:column;align-items:center;gap:3px;
+  background:transparent;border:0;border-radius:12px;padding:2px 0;color:var(--ink);opacity:.72;font:inherit;font-size:11px;font-weight:600;white-space:nowrap;cursor:pointer}
+.tabs button .ic{display:flex;align-items:center;justify-content:center;width:52px;height:30px;border-radius:99px;font-size:19px;line-height:1;position:relative}
+.tabs button.on{background:transparent;color:var(--ink);opacity:1;font-weight:700}
+.tabs button.on .ic{background:var(--accent)}
+.tabs button.live .ic::after{content:"";position:absolute;top:0;right:4px;width:9px;height:9px;border-radius:50%;background:var(--warn);border:2px solid var(--card)}
+.wrap{padding-bottom:140px}
 </style>
 </head>
 <body>
@@ -182,11 +193,13 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulati
   </div>
   <p class="sub" id="today"></p>
 
-  <div class="tabs">
-    <button id="t_apt" class="on">Ferienwohnung</button>
-    <button id="t_adv">Adventskalender</button>
-    <button id="t_gift">Geschenke</button>
-  </div>
+  <nav class="tabs" aria-label="Bereiche">
+    <button id="t_apt" class="on"><span class="ic">🏡</span>Wohnung</button>
+    <button id="t_adv"><span class="ic">🎄</span>Advent</button>
+    <button id="t_gift"><span class="ic">🎁</span>Geschenke</button>
+    <button id="t_bf"><span class="ic">🏷️</span>Black Friday</button>
+    <button id="t_jb"><span class="ic">🎂</span>Jonas</button>
+  </nav>
 
   <!-- WEIHNACHTEN -->
   <section id="p_apt">
@@ -321,6 +334,47 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulati
       </div>
       <div style="margin-top:12px"><button class="btn" id="ideaAdd" style="width:100%">Idee hinzufügen</button></div>
       <div class="note">Sammle hier Ideen und verteile sie später mit einem Tipp auf ein Türchen.</div>
+    </div>
+  </section>
+
+  <!-- BLACK FRIDAY -->
+  <section id="p_bf" class="hide">
+    <div class="card">
+      <h2 id="bfTitle">Black Friday</h2>
+      <div class="note" id="bfNote" style="margin:0 0 10px"></div>
+      <div class="bar"><i id="bfBar" style="width:0"></i></div>
+      <div class="note" id="bfSum" style="margin:4px 0 10px"></div>
+      <div id="bfList"></div>
+      <div class="row" style="align-items:flex-end;margin-top:12px">
+        <div style="flex:2"><label for="bfText">Artikel</label><input id="bfText" type="text" placeholder="z. B. Kopfhörer"></div>
+        <div><label for="bfPerson">Für wen</label><input id="bfPerson" type="text" list="gPersonList" autocomplete="off" placeholder="z. B. Jonas"></div>
+        <div><label for="bfShop">Shop</label><input id="bfShop" type="text" autocomplete="off" placeholder="z. B. Amazon"></div>
+        <div><label for="bfPrice">Preis (optional)</label><input id="bfPrice" type="number" inputmode="decimal" step="0.01" placeholder="0,00"></div>
+      </div>
+      <div style="margin-top:12px"><button class="btn" id="bfAdd" style="width:100%">Artikel hinzufügen</button></div>
+      <div style="margin-top:8px"><button class="btn ghost hide" id="bfCancel" style="width:100%">Abbrechen</button></div>
+      <div class="note">Die Black Friday Zeit startet jedes Jahr am 1. November. Nach Cyber Monday beginnt automatisch eine neue, leere Liste für das nächste Jahr. Die alten Einträge bleiben gespeichert.</div>
+    </div>
+  </section>
+
+  <!-- JONAS GEBURTSTAG -->
+  <section id="p_jb" class="hide">
+    <div class="card">
+      <h2>Geburtstagsideen für Jonas</h2>
+      <label for="jbDate">Geburtstag von Jonas</label>
+      <input id="jbDate" type="date">
+      <div class="note" id="jbNote"></div>
+      <div class="bar"><i id="jbBar" style="width:0"></i></div>
+      <div class="note" id="jbSum" style="margin:4px 0 10px"></div>
+      <div id="jbList"></div>
+      <div class="row" style="align-items:flex-end;margin-top:12px">
+        <div style="flex:2"><label for="jbText">Idee</label><input id="jbText" type="text" placeholder="z. B. Lego Set"></div>
+        <div><label for="jbFrom">Von wem</label><input id="jbFrom" type="text" list="gFromList" autocomplete="off" placeholder="z. B. Oma"></div>
+        <div><label for="jbPrice">Preis (optional)</label><input id="jbPrice" type="number" inputmode="decimal" step="0.01" placeholder="0,00"></div>
+      </div>
+      <div style="margin-top:12px"><button class="btn" id="jbAdd" style="width:100%">Idee hinzufügen</button></div>
+      <div style="margin-top:8px"><button class="btn ghost hide" id="jbCancel" style="width:100%">Abbrechen</button></div>
+      <div class="note">„Von wem“ leer lassen, wenn ihr selbst schenkt. Hake Ideen ab, sobald sie besorgt sind.</div>
     </div>
   </section>
 
@@ -586,7 +640,7 @@ window.TAGWERK_FIREBASE={
   /* Weihnachten teilen */
   function report(){
     var L=["Heimspiel "+X.year+(X.aptName?": "+X.aptName:"")];
-    if(!(X.aptFrom&&X.aptTo)){L.push("Die Mietzeit der Ferienwohnung ist noch nicht eingetragen.");giftLines(L);packLines(L);advLines(L);return L.join("\n");}
+    if(!(X.aptFrom&&X.aptTo)){L.push("Die Mietzeit der Ferienwohnung ist noch nicht eingetragen.");giftLines(L);packLines(L);advLines(L);bfLines(L);jbLines(L);return L.join("\n");}
     L.push("Ferienwohnung gemietet vom "+deDate(X.aptFrom)+" bis "+deDate(X.aptTo));
     var free=[],booked=[],d=parse(X.aptFrom),end=parse(X.aptTo);
     while(d<=end){
@@ -600,7 +654,7 @@ window.TAGWERK_FIREBASE={
     L.push("Noch frei ("+free.length+" Tage): "+(free.length?free.join(", "):"keine"));
     if(booked.length){L.push("");L.push("Schon verplant:");booked.forEach(function(b){L.push(b);});}
     giftLines(L);
-    packLines(L);advLines(L);
+    packLines(L);advLines(L);bfLines(L);jbLines(L);
     return L.join("\n");
   }
   function giftLines(L){
@@ -728,7 +782,7 @@ window.TAGWERK_FIREBASE={
   });
 
   /* Tabs */
-  var TABS=["apt","adv","gift"];
+  var TABS=["apt","adv","gift","bf","jb"];
   function tab(n){
     TABS.forEach(function(k){
       $("p_"+k).classList.toggle("hide",k!==n);
@@ -978,6 +1032,172 @@ window.TAGWERK_FIREBASE={
   $("pplIn").addEventListener("keydown",function(ev){if(ev.key==="Enter"){ev.preventDefault();$("pplAdd").click();}});
   $("giPerson").addEventListener("input",renderPeople);
 
+  /* Black Friday: Saison startet jedes Jahr am 1. November */
+  function bfDates(y){
+    var nov1=new Date(y,10,1),first=1+((4-nov1.getDay()+7)%7),fri=new Date(y,10,first+21+1);
+    return {start:nov1,bf:fri,cm:new Date(y,10,first+21+4)};
+  }
+  function bfSeason(){
+    var t=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    return t>bfDates(t.getFullYear()).cm?t.getFullYear()+1:t.getFullYear();
+  }
+  function days(a,b){return Math.round((b-a)/86400000);}
+  function plTag(n){return n+(n===1?" Tag":" Tage");}
+  var bfEdit=null;
+  function bfAll(){return X.bf||[];}
+  function bfAllW(){X.bf=X.bf||[];return X.bf;}
+  function renderBF(){
+    var sy=bfSeason(),D=bfDates(sy),t=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    var note="",live=false;
+    var bfTxt=WDL[D.bf.getDay()]+", "+pad(D.bf.getDate())+"."+pad(D.bf.getMonth()+1)+"."+sy;
+    if(t<D.start){note="Die Black Friday Zeit startet am 1. November. Noch "+plTag(days(t,D.start))+". Black Friday ist am "+bfTxt+".";}
+    else if(t<D.bf){live=true;note="Die Black Friday Zeit läuft seit dem 1. November. Noch "+plTag(days(t,D.bf))+" bis Black Friday am "+bfTxt+".";}
+    else if(+t===+D.bf){live=true;note="Heute ist Black Friday.";}
+    else if(+t===+D.cm){live=true;note="Heute ist Cyber Monday.";}
+    else{live=true;note="Black Friday war am "+bfTxt+". Cyber Monday ist am "+pad(D.cm.getDate())+"."+pad(D.cm.getMonth()+1)+".";}
+    $("bfTitle").textContent="Black Friday "+sy;
+    $("bfNote").textContent=note;
+    $("t_bf").classList.toggle("live",live);
+    var l=bfAll().filter(function(x){return x.y===sy;}),n=l.length,done=l.filter(function(x){return x.bought;}).length;
+    var sum=l.reduce(function(a,x){return a+(x.price||0);},0);
+    $("bfBar").style.width=(n?Math.round(done/n*100):0)+"%";
+    $("bfSum").textContent=n?(done+" von "+n+" gekauft"+(sum?". Geschätzte Kosten: "+eur(sum):"")):"Noch keine Artikel auf der Liste.";
+    l.sort(function(a,b){return (a.bought?1:0)-(b.bought?1:0);});
+    $("bfList").innerHTML=l.map(function(x){
+      var parts=[];
+      if(x.person)parts.push("Für "+x.person);
+      if(x.shop)parts.push(x.shop);
+      if(x.price)parts.push(eur(x.price));
+      return '<div class="gift'+(x.bought?" done":"")+'"><div class="gh"><div class="m"><b>'+esc(x.t)+'</b>'+(parts.length?'<small>'+esc(parts.join(" · "))+'</small>':'')+'</div><button class="btn ghost small" data-bf-ed="'+x.id+'">Ändern</button><button class="x" data-bf-del="'+x.id+'" aria-label="Löschen">×</button></div><div class="gc"><label class="ck"><input type="checkbox" data-bf-b="'+x.id+'"'+(x.bought?" checked":"")+'> Gekauft</label></div></div>';
+    }).join("");
+  }
+  function bfReset(){
+    bfEdit=null;$("bfText").value="";$("bfPerson").value="";$("bfShop").value="";$("bfPrice").value="";
+    $("bfAdd").textContent="Artikel hinzufügen";$("bfCancel").classList.add("hide");
+  }
+  $("bfAdd").onclick=function(){
+    var t=$("bfText").value.trim();
+    if(!t){$("bfText").focus();return;}
+    var p=parseFloat(String($("bfPrice").value).replace(",","."));
+    var person=$("bfPerson").value.trim(),shop=$("bfShop").value.trim();
+    if(bfEdit){
+      var it=bfAllW().filter(function(x){return x.id===bfEdit;})[0];
+      if(it){it.t=t;it.person=person;it.shop=shop;it.price=isNaN(p)?0:p;}
+      bfReset();
+    }else{
+      bfAllW().push({id:newId(),y:bfSeason(),t:t,person:person,shop:shop,price:isNaN(p)?0:p,bought:false});
+      $("bfText").value="";$("bfPrice").value="";
+    }
+    save();renderBF();
+  };
+  $("bfCancel").onclick=bfReset;
+  $("bfList").addEventListener("change",function(ev){
+    var id=ev.target.getAttribute("data-bf-b");if(!id)return;
+    var it=bfAllW().filter(function(x){return x.id===id;})[0];if(!it)return;
+    it.bought=ev.target.checked;save();renderBF();
+  });
+  $("bfList").addEventListener("click",function(ev){
+    var ed=ev.target.closest("[data-bf-ed]"),del=ev.target.closest("[data-bf-del]"),id,it;
+    if(ed){
+      id=ed.getAttribute("data-bf-ed");it=bfAllW().filter(function(x){return x.id===id;})[0];if(!it)return;
+      bfEdit=id;$("bfText").value=it.t||"";$("bfPerson").value=it.person||"";$("bfShop").value=it.shop||"";$("bfPrice").value=it.price||"";
+      $("bfAdd").textContent="Änderung speichern";$("bfCancel").classList.remove("hide");
+      try{$("bfText").scrollIntoView({behavior:"smooth",block:"center"});}catch(e){}
+    }else if(del){
+      id=del.getAttribute("data-bf-del");
+      if(!confirm("Diesen Artikel von der Liste löschen?"))return;
+      if(bfEdit===id)bfReset();
+      X.bf=bfAllW().filter(function(x){return x.id!==id;});
+      save();renderBF();
+    }
+  });
+  function bfLines(L){
+    var sy=bfSeason(),open=bfAll().filter(function(x){return x.y===sy&&!x.bought;});
+    if(!open.length)return;
+    L.push("");L.push("Black Friday "+sy+", noch zu kaufen:");
+    open.forEach(function(x){
+      var e=[];if(x.person)e.push("für "+x.person);if(x.shop)e.push(x.shop);
+      L.push(x.t+(e.length?" ("+e.join(", ")+")":""));
+    });
+  }
+
+  /* Jonas Geburtstag */
+  var jbEdit=null,JB_DEFAULT="2023-10-14";
+  function jb(){var j=X.jb||{};return {bday:j.bday||JB_DEFAULT,ideas:j.ideas||[]};}
+  function jbW(){X.jb=X.jb||{};X.jb.ideas=X.jb.ideas||[];X.jb.bday=X.jb.bday||JB_DEFAULT;return X.jb;}
+  function renderJB(){
+    var j=jb(),ideas=j.ideas||[];
+    if(document.activeElement!==$("jbDate"))$("jbDate").value=j.bday||"";
+    var note="Trage den Geburtstag ein, dann siehst du den Countdown.";
+    if(j.bday){
+      var b=parse(j.bday),t=new Date(now.getFullYear(),now.getMonth(),now.getDate()),nb=new Date(t.getFullYear(),b.getMonth(),b.getDate());
+      if(nb<t)nb=new Date(t.getFullYear()+1,b.getMonth(),b.getDate());
+      var d=days(t,nb),age=nb.getFullYear()-b.getFullYear();
+      var al=age+(age===1?" Jahr":" Jahre")+" alt";
+      note=d===0?"Heute hat Jonas Geburtstag und wird "+al+".":"Jonas wird am "+pad(nb.getDate())+"."+pad(nb.getMonth()+1)+"."+nb.getFullYear()+" "+al+". Noch "+plTag(d)+".";
+    }
+    $("jbNote").textContent=note;
+    var n=ideas.length,done=ideas.filter(function(x){return x.bought;}).length,sum=ideas.reduce(function(a,x){return a+(x.price||0);},0);
+    $("jbBar").style.width=(n?Math.round(done/n*100):0)+"%";
+    $("jbSum").textContent=n?(done+" von "+n+" besorgt"+(sum?". Geschätzte Kosten: "+eur(sum):"")):"Noch keine Ideen gesammelt.";
+    var l=ideas.slice().sort(function(a,b){return (a.bought?1:0)-(b.bought?1:0);});
+    $("jbList").innerHTML=l.map(function(x){
+      var parts=[];
+      if(x.from)parts.push("Von "+x.from);
+      if(x.price)parts.push(eur(x.price));
+      return '<div class="gift'+(x.bought?" done":"")+'"><div class="gh"><div class="m"><b>'+esc(x.t)+'</b>'+(parts.length?'<small>'+esc(parts.join(" · "))+'</small>':'')+'</div><button class="btn ghost small" data-jb-ed="'+x.id+'">Ändern</button><button class="x" data-jb-del="'+x.id+'" aria-label="Löschen">×</button></div><div class="gc"><label class="ck"><input type="checkbox" data-jb-b="'+x.id+'"'+(x.bought?" checked":"")+'> Besorgt</label></div></div>';
+    }).join("");
+  }
+  function jbReset(){
+    jbEdit=null;$("jbText").value="";$("jbFrom").value="";$("jbPrice").value="";
+    $("jbAdd").textContent="Idee hinzufügen";$("jbCancel").classList.add("hide");
+  }
+  $("jbDate").onchange=function(){jbW().bday=$("jbDate").value;save();renderJB();};
+  $("jbAdd").onclick=function(){
+    var t=$("jbText").value.trim();
+    if(!t){$("jbText").focus();return;}
+    var p=parseFloat(String($("jbPrice").value).replace(",","."));
+    var from=$("jbFrom").value.trim();
+    if(jbEdit){
+      var it=jbW().ideas.filter(function(x){return x.id===jbEdit;})[0];
+      if(it){it.t=t;it.from=from;it.price=isNaN(p)?0:p;}
+      jbReset();
+    }else{
+      jbW().ideas.push({id:newId(),t:t,from:from,price:isNaN(p)?0:p,bought:false});
+      $("jbText").value="";$("jbPrice").value="";
+    }
+    save();renderJB();
+  };
+  $("jbCancel").onclick=jbReset;
+  $("jbList").addEventListener("change",function(ev){
+    var id=ev.target.getAttribute("data-jb-b");if(!id)return;
+    var it=jbW().ideas.filter(function(x){return x.id===id;})[0];if(!it)return;
+    it.bought=ev.target.checked;save();renderJB();
+  });
+  $("jbList").addEventListener("click",function(ev){
+    var ed=ev.target.closest("[data-jb-ed]"),del=ev.target.closest("[data-jb-del]"),id,it;
+    if(ed){
+      id=ed.getAttribute("data-jb-ed");it=jbW().ideas.filter(function(x){return x.id===id;})[0];if(!it)return;
+      jbEdit=id;$("jbText").value=it.t||"";$("jbFrom").value=it.from||"";$("jbPrice").value=it.price||"";
+      $("jbAdd").textContent="Änderung speichern";$("jbCancel").classList.remove("hide");
+      try{$("jbText").scrollIntoView({behavior:"smooth",block:"center"});}catch(e){}
+    }else if(del){
+      id=del.getAttribute("data-jb-del");
+      if(!confirm("Diese Idee von der Liste löschen?"))return;
+      if(jbEdit===id)jbReset();
+      jbW().ideas=jbW().ideas.filter(function(x){return x.id!==id;});
+      save();renderJB();
+    }
+  });
+  function jbLines(L){
+    var open=(jb().ideas||[]).filter(function(x){return !x.bought;});
+    if(!open.length)return;
+    L.push("");L.push("Geburtstagsideen für Jonas, noch zu besorgen:");
+    open.forEach(function(x){L.push(x.t+(x.from?" (von "+x.from+")":""));});
+  }
+  var _rx4=renderX;
+  renderX=function(){_rx4();renderBF();renderJB();};
+
   /* Packliste Ferienwohnung */
   var PACK_SUG=["Bettwäsche","Handtücher","Geschirrtücher","Spülmittel","Kaffee und Filter","Ladekabel","Gesellschaftsspiele","Hausschuhe"];
   function packs(){return X.pack||[];}
@@ -1052,6 +1272,8 @@ window.TAGWERK_FIREBASE={
     if(!c.pack&&X.pack)c.pack=X.pack;
     if(!c.giftIdeas&&X.giftIdeas)c.giftIdeas=X.giftIdeas;
     if(!c.people&&X.people)c.people=X.people;
+    if(!c.bf&&X.bf)c.bf=X.bf;
+    if(!c.jb&&X.jb)c.jb=X.jb;
     state.xmas=Object.assign({year:X.year,aptName:"",aptFrom:"",aptTo:"",days:{},gifts:[]},c);
     X=state.xmas;
     lastX=canon(X);
@@ -1067,7 +1289,7 @@ window.TAGWERK_FIREBASE={
     pushing=true;lastX=j;
     sharedDoc.set(JSON.parse(JSON.stringify(X))).catch(function(){syncMsg("Das Speichern im gemeinsamen Kalender hat nicht geklappt.");}).then(function(){pushing=false;if(pend){pend=false;pushX();}});
   }
-  function isEmptyX(x){var av=x.advent||{};return !x.aptFrom&&!x.aptTo&&!Object.keys(x.days||{}).length&&!(x.gifts||[]).length&&!Object.keys(av.days||{}).length&&!(av.ideas||[]).length&&!(x.pack||[]).length&&!(x.giftIdeas||[]).length;}
+  function isEmptyX(x){var av=x.advent||{};return !x.aptFrom&&!x.aptTo&&!Object.keys(x.days||{}).length&&!(x.gifts||[]).length&&!Object.keys(av.days||{}).length&&!(av.ideas||[]).length&&!(x.pack||[]).length&&!(x.giftIdeas||[]).length&&!(x.bf||[]).length&&!((x.jb||{}).ideas||[]).length;}
   async function connect(getRef,okMsg){
     var ref=await getRef();
     var snap=await ref.get();
@@ -1121,8 +1343,8 @@ window.TAGWERK_FIREBASE={
     var booked=Object.keys(x.days||{}).filter(function(k){return x.days[k]&&x.days[k].s!=="free";}).length;
     var gifts=(x.gifts||[]).length,doors=Object.keys(av.days||{}).length,ideas=(av.ideas||[]).length;
     var apt=(x.aptFrom&&x.aptTo)?1:0;
-    var pack=(x.pack||[]).length,gi=(x.giftIdeas||[]).length;
-    return {apt:apt,booked:booked,gifts:gifts,doors:doors,ideas:ideas,pack:pack,gi:gi,score:apt+booked+gifts+doors+ideas+pack+gi};
+    var pack=(x.pack||[]).length,gi=(x.giftIdeas||[]).length,bf=(x.bf||[]).length,jb=((x.jb||{}).ideas||[]).length;
+    return {apt:apt,booked:booked,gifts:gifts,doors:doors,ideas:ideas,pack:pack,gi:gi,bf:bf,jb:jb,score:apt+booked+gifts+doors+ideas+pack+gi+bf+jb};
   }
   function abSlotKey(dateIso){
     var p=dateIso.split("-"),n=Math.floor(Date.UTC(+p[0],+p[1]-1,+p[2])/86400000);
@@ -1130,7 +1352,7 @@ window.TAGWERK_FIREBASE={
   }
   function abEntry(x,dateIso){
     var m=abMetrics(x);
-    return {datum:dateIso,apt:m.apt,booked:m.booked,gifts:m.gifts,doors:m.doors,ideas:m.ideas,pack:m.pack,gi:m.gi,score:m.score,value:JSON.stringify(x)};
+    return {datum:dateIso,apt:m.apt,booked:m.booked,gifts:m.gifts,doors:m.doors,ideas:m.ideas,pack:m.pack,gi:m.gi,bf:m.bf,jb:m.jb,score:m.score,value:JSON.stringify(x)};
   }
   function autoBackup(){
     try{
@@ -1155,6 +1377,8 @@ window.TAGWERK_FIREBASE={
     if(e.doors)t.push(abPl(e.doors,"Türchen","Türchen"));
     if(e.pack)t.push(abPl(e.pack,"Packpunkt","Packpunkte"));
     if(e.gi)t.push(abPl(e.gi,"Geschenkidee","Geschenkideen"));
+    if(e.bf)t.push(abPl(e.bf,"Black Friday Artikel","Black Friday Artikel"));
+    if(e.jb)t.push(abPl(e.jb,"Geburtstagsidee","Geburtstagsideen"));
     if(e.apt&&!t.length)t.push("Ferienwohnung eingetragen");
     return t.length?t.join(", "):"Keine Einträge";
   }
@@ -1197,7 +1421,7 @@ window.TAGWERK_FIREBASE={
   }
 
   /* Version: bei jeder Änderung hier hochzählen */
-  var APP_VERSION="2.12.0",APP_DATE="2026-10-27";
+  var APP_VERSION="2.14.0",APP_DATE="2026-10-27";
   $("verInfo").textContent="Heimspiel Version "+APP_VERSION+" vom "+deDate(APP_DATE);
 
   /* Datensicherung als Datei */
@@ -1268,6 +1492,8 @@ window.TAGWERK_FIREBASE={
   renderX();
   if(location.hash==="#advent")tab("adv");
   if(location.hash==="#geschenke")tab("gift");
+  if(location.hash==="#blackfriday")tab("bf");
+  if(location.hash==="#jonas")tab("jb");
 })();
 </script>
 </body>
