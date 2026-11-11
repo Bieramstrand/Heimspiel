@@ -378,8 +378,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulati
   <section id="p_jb" class="hide">
     <div class="card">
       <h2>Geburtstagsideen für Jonas</h2>
-      <label for="jbDate">Geburtstag von Jonas</label>
-      <input id="jbDate" type="date">
+      <div class="mute">Geburtstag von Jonas: <b>14.10.2023</b></div>
       <div class="note" id="jbNote"></div>
       <div class="bar"><i id="jbBar" style="width:0"></i></div>
       <div class="note" id="jbSum" style="margin:4px 0 10px"></div>
@@ -1166,11 +1165,10 @@ window.TAGWERK_FIREBASE={
 
   /* Jonas Geburtstag */
   var jbEdit=null,JB_DEFAULT="2023-10-14";
-  function jb(){var j=X.jb||{};return {bday:j.bday||JB_DEFAULT,ideas:j.ideas||[]};}
-  function jbW(){X.jb=X.jb||{};X.jb.ideas=X.jb.ideas||[];X.jb.bday=X.jb.bday||JB_DEFAULT;return X.jb;}
+  function jb(){var j=X.jb||{};return {bday:JB_DEFAULT,ideas:j.ideas||[]};}
+  function jbW(){X.jb=X.jb||{};X.jb.ideas=X.jb.ideas||[];X.jb.bday=JB_DEFAULT;return X.jb;}
   function renderJB(){
     var j=jb(),ideas=j.ideas||[];
-    if(document.activeElement!==$("jbDate"))$("jbDate").value=j.bday||"";
     var note="Trage den Geburtstag ein, dann siehst du den Countdown.";
     if(j.bday){
       var b=parse(j.bday),t=new Date(now.getFullYear(),now.getMonth(),now.getDate()),nb=new Date(t.getFullYear(),b.getMonth(),b.getDate());
@@ -1195,7 +1193,6 @@ window.TAGWERK_FIREBASE={
     jbEdit=null;$("jbText").value="";$("jbFrom").value="";$("jbPrice").value="";$("jbUrl").value="";
     $("jbAdd").textContent="Idee hinzufügen";$("jbCancel").classList.add("hide");
   }
-  $("jbDate").onchange=function(){jbW().bday=$("jbDate").value;save();renderJB();};
   $("jbAdd").onclick=function(){
     var t=$("jbText").value.trim();
     if(!t){$("jbText").focus();return;}
