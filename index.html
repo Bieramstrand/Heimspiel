@@ -356,6 +356,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulati
       <div class="note" id="bfNote" style="margin:0 0 10px"></div>
       <div class="bar"><i id="bfBar" style="width:0"></i></div>
       <div class="note" id="bfSum" style="margin:4px 0 10px"></div>
+      <div class="hide" id="bfAutoBox" style="margin:0 0 10px"><button type="button" class="btn ghost small" id="bfCheck">Preise jetzt prüfen</button><div class="note" id="bfAutoNote" style="margin:4px 0 0"></div></div>
       <div id="bfList"></div>
       <div class="row" style="align-items:flex-end;margin-top:12px">
         <div style="flex:2"><label for="bfText">Artikel</label><input id="bfText" type="text" placeholder="z. B. Kopfhörer"></div>
@@ -371,7 +372,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulati
       <div class="note hide" id="bfLinkHint"></div>
       <div style="margin-top:12px"><button class="btn" id="bfAdd" style="width:100%">Artikel hinzufügen</button></div>
       <div style="margin-top:8px"><button class="btn ghost hide" id="bfCancel" style="width:100%">Abbrechen</button></div>
-      <div class="note">Preisalarm: Trage den aktuellen Preis und deinen Wunschpreis ein. Liegt der Preis beim Wunschpreis oder darunter, markiert die App den Artikel grün. Die App kann Preise nicht selbst abrufen. Über „Preiswecker“ kommst du zu idealo und kannst dich dort benachrichtigen lassen. Die Black Friday Zeit startet jedes Jahr am 1. November. Nach Cyber Monday beginnt automatisch eine neue, leere Liste für das nächste Jahr.</div>
+      <div class="note">Preisalarm: Trage den aktuellen Preis und deinen Wunschpreis ein. Liegt der Preis beim Wunschpreis oder darunter, markiert die App den Artikel grün. Wenn du einen Link einfügst, trägt die App Name und Preis selbst ein. Einmal am Tag sucht sie für alle offenen Artikel den günstigsten Preis, mit „Preise jetzt prüfen“ auch sofort. Die Preise kommen aus einer KI Suche und können danebenliegen, also vor dem Kauf kurz im Shop prüfen. Die Black Friday Zeit startet jedes Jahr am 1. November. Nach Cyber Monday beginnt automatisch eine neue, leere Liste für das nächste Jahr.</div>
     </div>
   </section>
 
@@ -1080,6 +1081,7 @@ window.TAGWERK_FIREBASE={
     else if(+t===+D.cm){live=true;note="Heute ist Cyber Monday.";}
     else{live=true;note="Black Friday war am "+bfTxt+". Cyber Monday ist am "+pad(D.cm.getDate())+"."+pad(D.cm.getMonth()+1)+".";}
     $("bfTitle").textContent="Black Friday "+sy;
+    $("bfAutoBox").classList.toggle("hide",!PREIS_ON);
     $("bfNote").textContent=note;
     $("t_bf").classList.toggle("live",live);
     var l=bfAll().filter(function(x){return x.y===sy;}),n=l.length,done=l.filter(function(x){return x.bought;}).length;
@@ -1087,22 +1089,27 @@ window.TAGWERK_FIREBASE={
     $("bfBar").style.width=(n?Math.round(done/n*100):0)+"%";
     $("bfSum").textContent=n?(done+" von "+n+" gekauft"+(sum?". Geschätzte Kosten: "+eur(sum):"")):"Noch keine Artikel auf der Liste.";
     l.sort(function(a,b){return (a.bought?1:0)-(b.bought?1:0);});
-    var hit=l.filter(function(x){return !x.bought&&x.wish&&x.price&&x.price<=x.wish;}).length;
+    var hit=l.filter(function(x){var b=bfBest(x);return !x.bought&&x.wish&&b&&b<=x.wish;}).length;
     if(hit)$("bfSum").textContent+=". "+hit+(hit===1?" Artikel hat":" Artikel haben")+" den Wunschpreis erreicht.";
     $("bfList").innerHTML=l.map(function(x){
       var parts=[];
       if(x.person)parts.push("Für "+x.person);
       if(x.shop)parts.push(x.shop);
       if(x.price)parts.push(eur(x.price));
-      var badge="";
+      var badge="",bp=bfBest(x),au="";
+      if(x.auto&&x.auto.p){
+        var ad=parse(x.auto.d);
+        au='<small>Günstigster Preis: '+esc(eur(x.auto.p))+(x.auto.shop?' bei '+esc(x.auto.shop):'')+' (geprüft am '+pad(ad.getDate())+'.'+pad(ad.getMonth()+1)+'.)</small>';
+      }
       if(x.wish){
-        if(x.price&&x.price<=x.wish)badge='<span class="pa ok">Wunschpreis erreicht ('+eur(x.wish)+')</span>';
-        else if(x.price)badge='<span class="pa">Noch '+eur(x.price-x.wish)+' über Wunschpreis '+eur(x.wish)+'</span>';
+        if(bp&&bp<=x.wish)badge='<span class="pa ok">Wunschpreis erreicht ('+eur(x.wish)+')</span>';
+        else if(bp)badge='<span class="pa">Noch '+eur(bp-x.wish)+' über Wunschpreis '+eur(x.wish)+'</span>';
         else badge='<span class="pa">Wunschpreis '+eur(x.wish)+'</span>';
       }
       var links=(x.url?'<a class="lnk" href="'+esc(x.url)+'" target="_blank" rel="noopener">Zum Angebot</a>':'')+
+        (x.auto&&x.auto.url?'<a class="lnk" href="'+esc(x.auto.url)+'" target="_blank" rel="noopener">Günstigstes Angebot</a>':'')+
         '<a class="lnk" href="https://www.idealo.de/preisvergleich/MainSearchProductCategory.html?q='+encodeURIComponent(x.t)+'" target="_blank" rel="noopener">Preiswecker</a>';
-      return '<div class="gift'+(x.bought?" done":"")+'"><div class="gh"><div class="m"><b>'+esc(x.t)+'</b>'+(parts.length?'<small>'+esc(parts.join(" · "))+'</small>':'')+(badge?'<div>'+badge+'</div>':'')+'</div><button class="btn ghost small" data-bf-ed="'+x.id+'">Ändern</button><button class="x" data-bf-del="'+x.id+'" aria-label="Löschen">×</button></div><div class="gc"><label class="ck"><input type="checkbox" data-bf-b="'+x.id+'"'+(x.bought?" checked":"")+'> Gekauft</label>'+links+'</div></div>';
+      return '<div class="gift'+(x.bought?" done":"")+'"><div class="gh"><div class="m"><b>'+esc(x.t)+'</b>'+(parts.length?'<small>'+esc(parts.join(" · "))+'</small>':'')+au+(badge?'<div>'+badge+'</div>':'')+'</div><button class="btn ghost small" data-bf-ed="'+x.id+'">Ändern</button><button class="x" data-bf-del="'+x.id+'" aria-label="Löschen">×</button></div><div class="gc"><label class="ck"><input type="checkbox" data-bf-b="'+x.id+'"'+(x.bought?" checked":"")+'> Gekauft</label>'+links+'</div></div>';
     }).join("");
   }
   function normUrl(u){
@@ -1150,7 +1157,14 @@ window.TAGWERK_FIREBASE={
     var before=txt.slice(0,m.index).replace(/["'„“”»«]/g," ").replace(/\b(schau dir (das|dies) an|guck mal|hier|check (this|das) out)\b[:!]?/gi," ").replace(/[:\s]+$/,"").replace(/\s+/g," ").trim();
     return {url:url,shop:linkShop(u.hostname),name:before.length>=3?before:linkName(u)};
   }
-  function linkFill(textId,urlId,shopId,hintId){
+  /* Preisabfrage über die Netlify Funktion (Perplexity), nur auf der Netlify Seite */
+  var PREIS_ON=/(^|\.)netlify\.app$/.test(location.hostname);
+  function askPrice(o){
+    return fetch("/api/preis",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(o)})
+      .then(function(r){return r.json().then(function(d){if(!r.ok)throw new Error(d&&d.error||"Fehler");return d;});});
+  }
+  function linkFill(textId,urlId,shopId,hintId,priceId){
+    var seq=0;
     function apply(src){
       var r=parseLink(src.value);if(!r)return;
       $(urlId).value=r.url;
@@ -1160,14 +1174,53 @@ window.TAGWERK_FIREBASE={
       var h=$(hintId);
       h.textContent=r.name?"Aus dem Link übernommen. Bitte den Namen kurz prüfen und den Preis eintragen.":"Der Link enthält keinen Artikelnamen. Bitte den Namen selbst eintragen.";
       h.classList.remove("hide");
-      if(!r.name)$(textId).focus();
+      if(!PREIS_ON){if(!r.name)$(textId).focus();return;}
+      var my=++seq,auto=$(textId).value;
+      h.textContent="Suche Name und Preis…";
+      askPrice({mode:"link",url:r.url,q:r.name}).then(function(d){
+        if(my!==seq)return;
+        if(d.name&&(!$(textId).value.trim()||$(textId).value===auto))$(textId).value=d.name;
+        if(d.price&&!$(priceId).value)$(priceId).value=d.price;
+        h.textContent=d.price?"Name und Preis übernommen ("+eur(d.price)+"). Bitte kurz prüfen.":"Name übernommen, einen Preis habe ich nicht gefunden. Bitte selbst eintragen.";
+        if(!$(textId).value.trim())$(textId).focus();
+      }).catch(function(e){
+        if(my!==seq)return;
+        h.textContent="Preis konnte nicht abgefragt werden ("+e.message+"). Bitte selbst eintragen.";
+      });
     }
     [textId,urlId].forEach(function(id){
       $(id).addEventListener("paste",function(){var el=this;setTimeout(function(){apply(el);},0);});
       $(id).addEventListener("change",function(){if(/https?:\/\/|www\.|amzn\./i.test(this.value))apply(this);});
     });
   }
-  linkFill("bfText","bfUrl","bfShop","bfLinkHint");
+  linkFill("bfText","bfUrl","bfShop","bfLinkHint","bfPrice");
+  /* Tägliche Preisprüfung für Black Friday */
+  var bfBusy=false;
+  function bfBest(x){var a=x.auto&&x.auto.p;return a&&(!x.price||a<x.price)?a:x.price;}
+  function bfCheck(force){
+    if(!PREIS_ON||bfBusy)return;
+    var today=iso(new Date());
+    if(!force&&X.bfChecked===today)return;
+    var sy=bfSeason(),ids=bfAll().filter(function(x){return x.y===sy&&!x.bought&&x.t;}).slice(0,25).map(function(x){return x.id;});
+    if(!ids.length){if(force)$("bfAutoNote").textContent="Keine offenen Artikel zum Prüfen.";return;}
+    bfBusy=true;X.bfChecked=today;save();
+    var i=0,found=0;
+    function next(){
+      if(i>=ids.length){bfBusy=false;$("bfAutoNote").textContent="Preise geprüft: "+found+" von "+ids.length+" gefunden.";renderBF();return;}
+      var id=ids[i++],x=bfAll().filter(function(y){return y.id===id;})[0];
+      if(!x){next();return;}
+      $("bfAutoNote").textContent="Prüfe Preise… "+i+" von "+ids.length;
+      askPrice({mode:"best",q:x.t,url:x.url||""}).then(function(d){
+        var it=bfAll().filter(function(y){return y.id===id;})[0];
+        if(it&&d.price){it.auto={p:d.price,shop:d.shop||"",url:d.url||"",d:today};found++;save();renderBF();}
+      }).catch(function(){}).then(next);
+    }
+    next();
+  }
+  if(PREIS_ON){
+    $("bfCheck").onclick=function(){bfCheck(true);};
+    setTimeout(function(){bfCheck(false);},10000);
+  }
   function bfReset(){
     bfEdit=null;$("bfLinkHint").classList.add("hide");$("bfText").value="";$("bfPerson").value="";$("bfShop").value="";$("bfPrice").value="";$("bfWish").value="";$("bfUrl").value="";
     $("bfAdd").textContent="Artikel hinzufügen";$("bfCancel").classList.add("hide");
@@ -1182,6 +1235,7 @@ window.TAGWERK_FIREBASE={
     if(url===null){alert("Der Link ist nicht gültig. Bitte die ganze Adresse einfügen, zum Beispiel aus Safari kopiert.");$("bfUrl").focus();return;}
     if(bfEdit){
       var it=bfAllW().filter(function(x){return x.id===bfEdit;})[0];
+      if(it&&(it.t!==t||it.url!==url))delete it.auto;
       if(it){it.t=t;it.person=person;it.shop=shop;it.price=isNaN(p)?0:p;it.wish=isNaN(w)?0:w;it.url=url;}
       bfReset();
     }else{
@@ -1249,7 +1303,7 @@ window.TAGWERK_FIREBASE={
       return '<div class="gift'+(x.bought?" done":"")+'"><div class="gh"><div class="m"><b>'+esc(x.t)+'</b>'+(parts.length?'<small>'+esc(parts.join(" · "))+'</small>':'')+'</div><button class="btn ghost small" data-jb-ed="'+x.id+'">Ändern</button><button class="x" data-jb-del="'+x.id+'" aria-label="Löschen">×</button></div><div class="gc"><label class="ck"><input type="checkbox" data-jb-b="'+x.id+'"'+(x.bought?" checked":"")+'> Besorgt</label>'+(x.url?'<a class="lnk" href="'+esc(x.url)+'" target="_blank" rel="noopener">Zum Angebot</a>':'')+'</div></div>';
     }).join("");
   }
-  linkFill("jbText","jbUrl",null,"jbLinkHint");
+  linkFill("jbText","jbUrl",null,"jbLinkHint","jbPrice");
   function jbReset(){
     jbEdit=null;$("jbLinkHint").classList.add("hide");$("jbText").value="";$("jbFrom").value="";$("jbPrice").value="";$("jbUrl").value="";
     $("jbAdd").textContent="Idee hinzufügen";$("jbCancel").classList.add("hide");
