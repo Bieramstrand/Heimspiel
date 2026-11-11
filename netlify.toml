@@ -1,3 +1,9 @@
 [build]
   publish = "."
   functions = "netlify/functions"
+
+# Der Firebase apiKey in index.html ist bei Firebase Web Apps absichtlich
+# öffentlich (der Schutz läuft über die Firestore Regeln). Damit der
+# Geheimnis Scan von Netlify den Build nicht abbricht, wird er hier erlaubt.
+[build.environment]
+  SECRETS_SCAN_SMART_DETECTION_OMIT_VALUES = "AIzaSyBFbKIBKr0gr621e8XSljAG4lGXOSrIxwo"
