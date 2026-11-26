@@ -196,6 +196,14 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulati
 .lnk:active{opacity:.6}
 .pa{display:inline-block;font-size:12px;font-weight:700;padding:2px 9px;border-radius:99px;margin-top:5px;background:var(--busy);color:var(--busyink)}
 .pa.ok{background:var(--free);color:var(--freeink)}
+.aptBox summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer}
+.aptBox summary::-webkit-details-marker{display:none}
+.aptBox summary h2{margin:0}
+.aptHead{display:flex;flex-direction:column;gap:4px;min-width:0}
+.aptSum{font-size:15px;font-weight:600;color:var(--ink)}
+.aptChev{color:var(--accent);font-size:20px;transition:transform .2s}
+.aptBox[open] .aptChev{transform:rotate(180deg)}
+.aptBox[open] summary{margin-bottom:6px}
 </style>
 </head>
 <body>
@@ -216,8 +224,8 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulati
 
   <!-- WEIHNACHTEN -->
   <section id="p_apt">
-    <div class="card">
-      <h2>Ferienwohnung</h2>
+    <details class="card aptBox" id="aptBox">
+      <summary><span class="aptHead"><h2>Ferienwohnung</h2><span class="aptSum" id="aptSum"></span></span><span class="aptChev" aria-hidden="true">▾</span></summary>
       <div class="row">
         <div><label for="yr">Jahr</label><input id="yr" type="number" inputmode="numeric" min="2020" max="2100"></div>
         <div><label for="aptName">Name oder Ort</label><input id="aptName" type="text" placeholder="z. B. Ferienwohnung am Markt"></div>
@@ -226,7 +234,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulati
         <div><label for="aptFrom">Gemietet ab (Anreise)</label><input id="aptFrom" type="date"></div>
         <div><label for="aptTo">Gemietet bis (Abreise)</label><input id="aptTo" type="date"></div>
       </div>
-    </div>
+    </details>
 
 <div class="card">
       <h2>Kalender</h2>
@@ -542,7 +550,7 @@ window.TAGWERK_FIREBASE={
   var X=state.xmas;
   $("yr").value=X.year;$("aptName").value=X.aptName;$("aptFrom").value=X.aptFrom;$("aptTo").value=X.aptTo;
   $("yr").onchange=function(){var v=parseInt($("yr").value,10);if(v>2000&&v<2200){X.year=v;save();renderX();}};
-  $("aptName").onchange=function(){X.aptName=$("aptName").value.trim();save();};
+  $("aptName").onchange=function(){X.aptName=$("aptName").value.trim();save();aptSummary();};
   $("aptFrom").onchange=function(){X.aptFrom=$("aptFrom").value;if(X.aptFrom&&!X.aptTo)X.aptTo=X.aptFrom;$("aptTo").value=X.aptTo;save();renderX();};
   $("aptTo").onchange=function(){X.aptTo=$("aptTo").value;save();renderX();};
 
@@ -1364,6 +1372,22 @@ window.TAGWERK_FIREBASE={
   var _rx4=renderX;
   renderX=function(){_rx4();renderBF();renderJB();};
 
+  /* Karte Ferienwohnung auf und zuklappen */
+  function aptSummary(){
+    var t=[];
+    if(X.aptName)t.push(X.aptName);
+    if(X.aptFrom&&X.aptTo){var a=parse(X.aptFrom),b=parse(X.aptTo);t.push(pad(a.getDate())+"."+pad(a.getMonth()+1)+". bis "+pad(b.getDate())+"."+pad(b.getMonth()+1)+"."+b.getFullYear());}
+    $("aptSum").textContent=t.length?t.join(" · "):"Mietzeit noch nicht eingetragen";
+  }
+  var APTKEY="heimspiel_apt_open";
+  (function(){
+    var v=null;try{v=localStorage.getItem(APTKEY);}catch(e){}
+    $("aptBox").open=v===null?!(X.aptFrom&&X.aptTo):v==="1";
+    $("aptBox").addEventListener("toggle",function(){try{localStorage.setItem(APTKEY,$("aptBox").open?"1":"0");}catch(e){}});
+  })();
+  var _rx5=renderX;
+  renderX=function(){_rx5();aptSummary();};
+
   /* Packliste Ferienwohnung */
   var PACK_SUG=["Bettwäsche","Handtücher","Geschirrtücher","Spülmittel","Kaffee und Filter","Ladekabel","Gesellschaftsspiele","Hausschuhe"];
   function packs(){return X.pack||[];}
@@ -1587,7 +1611,7 @@ window.TAGWERK_FIREBASE={
   }
 
   /* Version: bei jeder Änderung hier hochzählen */
-  var APP_VERSION="2.17.1",APP_DATE="2026-10-27";
+  var APP_VERSION="2.18.0",APP_DATE="2026-10-27";
   $("verInfo").textContent="Heimspiel Version "+APP_VERSION+" vom "+deDate(APP_DATE);
 
   /* Datensicherung als Datei */
