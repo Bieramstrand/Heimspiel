@@ -157,11 +157,13 @@ input,select,textarea{min-width:0;max-width:100%}
 input[type=date],input[type=time],input[type=month]{-webkit-appearance:none;appearance:none;display:block;width:100%;min-height:47px;line-height:1.2;text-align:left}
 input[type=date]::-webkit-date-and-time-value,input[type=time]::-webkit-date-and-time-value,input[type=month]::-webkit-date-and-time-value{text-align:left;min-height:1.2em;margin:0}
 .row>*{min-width:130px;max-width:100%}
-:root{--eat:#dde8fb;--eatink:#1f3f80;--walk:#e6f4d7;--walkink:#3d6b14}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--eat:#1f2a47;--eatink:#a9bffa;--walk:#2c3a1c;--walkink:#c3e59a}}
-:root[data-theme="dark"]{--eat:#1f2a47;--eatink:#a9bffa;--walk:#2c3a1c;--walkink:#c3e59a}
+:root{--eat:#dde8fb;--eatink:#1f3f80;--walk:#e6f4d7;--walkink:#3d6b14;--bfast:#fbefc9;--bfastink:#7a5a00}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--eat:#1f2a47;--eatink:#a9bffa;--walk:#2c3a1c;--walkink:#c3e59a;--bfast:#3d321a;--bfastink:#f2d27a}}
+:root[data-theme="dark"]{--eat:#1f2a47;--eatink:#a9bffa;--walk:#2c3a1c;--walkink:#c3e59a;--bfast:#3d321a;--bfastink:#f2d27a}
 .day.eat{background:var(--eat);color:var(--eatink)}
 .day.walk{background:var(--walk);color:var(--walkink)}
+.day.bfast{background:var(--bfast);color:var(--bfastink)}
+.day .ev.k_bfast{--c:var(--bfastink)}
 .day .ev.k_walk{--c:var(--walkink)}
 .sug.on{background:var(--accent);color:#fff;border-color:transparent}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulation}
@@ -232,6 +234,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulati
       <div class="legend">
         <span><i style="background:var(--free)"></i>Frei</span>
         <span><i style="background:var(--visit)"></i>Besuch bei Familie</span>
+        <span><i style="background:var(--bfast)"></i>Frühstück</span>
         <span><i style="background:var(--eat)"></i>Essen gehen</span>
         <span><i style="background:var(--walk)"></i>Walk</span>
         <span><i style="background:var(--busy)"></i>Anderweitig belegt</span>
@@ -439,6 +442,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulati
     <label for="dState">Art</label>
     <select id="dState">
       <option value="visit">Besuch bei Familie</option>
+      <option value="bfast">Frühstück</option>
       <option value="eat">Essen gehen</option>
       <option value="walk">Walk</option>
       <option value="busy">Anderweitig belegt</option>
@@ -596,10 +600,10 @@ window.TAGWERK_FIREBASE={
     items=sortItems(items);
     if(!items.length){delete X.days[s];return;}
     var has=function(k){return items.some(function(i){return i.st===k;});};
-    var st=has("visit")?"visit":(has("eat")?"eat":(has("walk")?"walk":(has("busy")?"busy":"free")));
+    var st=has("visit")?"visit":(has("bfast")?"bfast":(has("eat")?"eat":(has("walk")?"walk":(has("busy")?"busy":"free"))));
     X.days[s]={s:st,t:items.map(function(i){return i.t;}).filter(Boolean).join(", "),items:items};
   }
-  function itemLabel(st){return st==="visit"?"Besuch":(st==="eat"?"Essen gehen":(st==="walk"?"Walk":(st==="busy"?"Belegt":"Notiz")));}
+  function itemLabel(st){return st==="visit"?"Besuch":(st==="bfast"?"Frühstück":(st==="eat"?"Essen gehen":(st==="walk"?"Walk":(st==="busy"?"Belegt":"Notiz"))));}
   var editItem=null;
   function setForm(it){
     editItem=it?it.id:null;
@@ -1582,7 +1586,7 @@ window.TAGWERK_FIREBASE={
   }
 
   /* Version: bei jeder Änderung hier hochzählen */
-  var APP_VERSION="2.16.1",APP_DATE="2026-10-27";
+  var APP_VERSION="2.17.0",APP_DATE="2026-10-27";
   $("verInfo").textContent="Heimspiel Version "+APP_VERSION+" vom "+deDate(APP_DATE);
 
   /* Datensicherung als Datei */
