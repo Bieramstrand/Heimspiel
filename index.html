@@ -237,7 +237,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulati
         <span><i style="background:var(--bfast)"></i>Frühstück</span>
         <span><i style="background:var(--eat)"></i>Essen gehen</span>
         <span><i style="background:var(--walk)"></i>Walk</span>
-        <span><i style="background:var(--busy)"></i>Anderweitig belegt</span>
         <span><i style="border:2px solid var(--accent);background:transparent"></i>In der Wohnung</span>
       </div>
       <div class="note">Tippe auf einen Tag, um ihn zu bearbeiten. Pro Tag sind mehrere Termine möglich, zum Beispiel mittags die Oma und abends Freunde. Tage ohne Eintrag zählen innerhalb der Mietzeit als frei.</div>
@@ -445,7 +444,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulati
       <option value="bfast">Frühstück</option>
       <option value="eat">Essen gehen</option>
       <option value="walk">Walk</option>
-      <option value="busy">Anderweitig belegt</option>
       <option value="free">Notiz, Tag bleibt frei</option>
     </select>
     <div class="row">
@@ -607,7 +605,10 @@ window.TAGWERK_FIREBASE={
   var editItem=null;
   function setForm(it){
     editItem=it?it.id:null;
-    $("dState").value=it?it.st:"visit";
+    var sel=$("dState"),old=sel.querySelector('option[value="busy"]');
+    if(it&&it.st==="busy"&&!old){old=document.createElement("option");old.value="busy";old.textContent="Anderweitig belegt";sel.appendChild(old);}
+    else if(!(it&&it.st==="busy")&&old)old.remove();
+    sel.value=it?it.st:"visit";
     $("dTime").value=it?(it.time||""):"";
     $("dText").value=it?(it.t||""):"";
     $("dFormTitle").textContent=it?"Termin ändern":"Neuer Termin";
@@ -1586,7 +1587,7 @@ window.TAGWERK_FIREBASE={
   }
 
   /* Version: bei jeder Änderung hier hochzählen */
-  var APP_VERSION="2.17.0",APP_DATE="2026-10-27";
+  var APP_VERSION="2.17.1",APP_DATE="2026-10-27";
   $("verInfo").textContent="Heimspiel Version "+APP_VERSION+" vom "+deDate(APP_DATE);
 
   /* Datensicherung als Datei */
